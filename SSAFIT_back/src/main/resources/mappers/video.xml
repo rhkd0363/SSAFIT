@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafit.pjt.model.dao.VideoDao">
+	<insert id="insertVideo" parameterType="Video">
+		insert into VIDEO (video_id, video_title, channel_title, channel_id, thumbnail_url, view_cnt, body_part )
+		VALUES (#{video_id},#{video_title},#{channel_title},#{channel_id},#{thumbnail_url},#{view_cnt},#{body_part})
+	</insert>
+	
+	<select id="selectVideoList" parameterType="java.util.HashMap" resultType="Video">
+		SELECT *
+		FROM video
+		WHERE 1 = 1 
+		<if test="keyword != null">
+		  AND video_title LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="body_part != null">
+		  AND body_part = #{body_part}
+		</if>
+	</select>
+	
+	<select id="selectVideo" parameterType="String" resultType="Video">
+		SELECT *
+		  FROM VIDEO
+		 WHERE video_id = #{video_id}
+	</select>
+	
+	<update id="updateViewCnt" parameterType="String">
+		update video set view_cnt = view_cnt + 1
+		 where video_id = #{video_id}
+	</update>
+</mapper>

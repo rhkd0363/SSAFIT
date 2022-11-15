@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafit.pjt.model.dao.FollowDao">
+
+	<select id="selectFollowing" parameterType="String" resultType="String">
+		SELECT user_name FROM USER
+		WHERE user_id in (SELECT follow_id from USER_FOLLOW
+						   WHERE user_id = #{user_id}
+						  )
+	</select>
+	
+	<select id="selectFollower" parameterType="String" resultType="String">
+		SELECT user_name FROM USER
+		WHERE user_id in (SELECT user_id FROM USER_FOLLOW
+						   WHERE follow_id = #{user_id}
+						  )	
+	</select>
+	
+	<insert id="insertFollow" parameterType="String">
+		INSERT INTO USER_FOLLOW
+		VALUES (#{user_id},#{follow_id},1)
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="String">
+		DELETE FROM USER_FOLLOW
+		 WHERE user_id = #{user_id} AND follow_id = #{follow_id}
+	</delete>
+</mapper>
