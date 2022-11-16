@@ -33,18 +33,28 @@ import ReviewList from "../components/video/review/ReviewList.vue"
 
 export default {
   name: "VideoSearch",
+
   components: {
-    VideoList,VideoDetail,ReviewList
+    VideoList,
+    VideoDetail,
+    ReviewList
   },
+
   data() {
     return {
       body_part: null,
       keyword: ""
     };
   },
+
+  created() {
+    this.showVideoList()
+  },
+
   computed: {
     ...mapState(["videos"])
   },
+
   methods: {
     showVideoList() {
       let searchCondition = {
@@ -54,9 +64,6 @@ export default {
 
       this.$store.dispatch("showVideoList", searchCondition);
     }
-  },
-  created() {
-    this.showVideoList()
   },
 };
 </script>

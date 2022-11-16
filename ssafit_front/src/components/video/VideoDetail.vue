@@ -9,9 +9,11 @@ import { mapState } from 'vuex'
 
 export default {
     name: 'VideoDetail',
-    computed:{
-        ...mapState(['video']),
-        videoURL(){
+
+    computed: {
+        ...mapState([ 'video' ]),
+
+        videoURL() {
             console.log(this.video)
             const videoId = this.video.video_id
             console.log(videoId)

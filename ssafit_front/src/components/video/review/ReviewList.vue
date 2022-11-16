@@ -7,9 +7,9 @@
     </ul>
     
     <fieldset>
-        <label for="review_content">리뷰 작성 : </label>
+        <label for="review_content">리뷰 작성 </label>
         <input type="text" id="review_content" v-model="review_content">
-        <button @click="createReview">리뷰등록</button>
+        <button @click="createReview">리뷰 등록</button>
     </fieldset>
   </div>
 </template>
@@ -19,18 +19,26 @@ import { mapState } from 'vuex'
 import ReviewItem from './ReviewItem.vue'
 
 export default {
-    name:'ReviewList',
-    components:{
+    name: 'ReviewList',
+
+    components: {
         ReviewItem
     },
-    computed:{
-        ...mapState(['reviews','video','user'])
+
+    computed: {
+        ...mapState([
+            'reviews',
+            'video',
+            'user'
+        ])
     },
+
     data() {
         return {
             review_content : '',
         }
     },
+
     methods: {
         createReview(){
             let review = {
@@ -41,7 +49,7 @@ export default {
             }
 
             this.$store.dispatch("registReview",review);
-        }
+        },
     },
 }
 </script>
