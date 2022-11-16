@@ -25,7 +25,7 @@ public class FollowRestController {
 	@Autowired
 	FollowInfoService followInfoService;
 	
-	@GetMapping("following")
+	@GetMapping("followLike")
 	public ResponseEntity<List<Video>> followLike(String user_id){
 		return new ResponseEntity<List<Video>>(followInfoService.showFollowLikeVideo(user_id),HttpStatus.OK);
 	}

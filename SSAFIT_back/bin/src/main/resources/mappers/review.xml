@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafit.pjt.model.dao.ReviewDao">
+
+	<select id="selectReviewList" parameterType="String" resultType="Review">
+		SELECT * from VIDEO_REVIEW
+		 WHERE video_id = #{video_id}
+		ORDER BY review_id
+	</select>
+	
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO VIDEO_REVIEW (video_id,user_id,review_content)
+		 VALUES (#{video_id},#{user_id},#{review_content})
+	</insert>
+
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM VIDEO_REVIEW WHERE review_id = #{review_id}
+	</delete>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE VIDEO_REVIEW SET review_content = #{review_content}, reg_date = now()
+		 WHERE review_id = #{review_id}
+	</update>
+	
+	<select id="selectReplyList" parameterType="int" resultType="Reply">
+		SELECT * from REPLY
+		 WHERE review_id = #{review_id}
+		ORDER BY reply_id
+	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY (review_id,reply_content,user_id)
+		 VALUES (#{review_id},#{reply_content},#{user_id})
+	</insert>
+
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM REPLY WHERE reply_id = #{reply_id}
+	</delete>
+	
+	<update id="updateReply" parameterType="Reply">
+		UPDATE REPLY SET reply_content = #{reply_content}, reg_date = now()
+		 WHERE reply_id = #{reply_id}
+	</update>
+</mapper>
