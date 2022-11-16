@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -61,17 +62,22 @@ export default new Vuex.Store({
       })
       .then((res) => {
         console.log(res)
-        if(res.data == ''){
+        if(res.data.message == "fail"){
           console.log("로그인 실패");
           alert("아이디와 비밀번호를 확인해주세요");
         }else{
           console.log("로그인 성공");
-          alert("환영합니다");
+          sessionStorage.setItem("access-token", res.data['access-token']);
+          router.push('/user')
         }
         // commit
       })
     },
 
+    showVideoList({ commit }, payload) {
+      console.log(payload)
+
+    }
 
 
 

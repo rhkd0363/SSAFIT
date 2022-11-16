@@ -15,7 +15,7 @@
             <input type="text" id="email" name="email" class="view" v-model="email" ref="email"/><br/>
             <label for="phoneNumber">전화번호</label>
             <input type="text" id="phoneNumber" name="phoneNumber" class="view" v-model="phoneNumber" ref="phoneNumber"/><br/>
-            <button type="button" class="btn btn-warning" @click="joinUser">가입</button>
+            <button type="button" class="btn btn-warning" @click="joinUser">Join</button>
         </fieldset>
     </div>
 </template>
