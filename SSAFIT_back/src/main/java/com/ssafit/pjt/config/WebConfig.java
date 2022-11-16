@@ -1,10 +1,14 @@
 package com.ssafit.pjt.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.ssafit.pjt.interceptor.JwtInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -19,5 +23,18 @@ public class WebConfig implements WebMvcConfigurer{
 	public void addCorsMappings(CorsRegistry registry) {
 		// TODO Auto-generated method stub
 		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET","POST","PUT","DELETE");
+	}
+	
+	@Autowired
+	private JwtInterceptor jwtInterceptor;
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")
+		.excludePathPatterns("/api/user/","/api/user/login",
+				"/swagger-resources/**",
+				"/swagger-ui/**",
+				"/v2/api-docs"
+				);
 	}
 }
