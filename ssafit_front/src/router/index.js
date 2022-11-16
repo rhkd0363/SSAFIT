@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import User from '../views/UserPage.vue'
-import Video from '../views/Video.vue'
-import Community from '../views/Community.vue'
 import Login from '../components/user/LoginPage.vue'
 import Join from '../components/user/JoinPage.vue'
+import Community from '../views/Community.vue'
+import Video from '../views/Video.vue'
 
 Vue.use(VueRouter)
 
@@ -23,7 +23,7 @@ const routes = [
   {
     path: '/video',
     name: 'Video',
-    component: Video
+    component: Video,
   },
   {
     path: '/community',

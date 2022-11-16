@@ -1,0 +1,27 @@
+<template>
+  <div v-if="video">
+    <iframe width="560" height="315" :src="videoURL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    name: 'VideoDetail',
+    computed:{
+        ...mapState(['video']),
+        videoURL(){
+            console.log(this.video)
+            const videoId = this.video.video_id
+            console.log(videoId)
+            return `https://www.youtube.com/embed/${videoId}`
+        }
+    },
+
+}
+</script>
+
+<style>
+
+</style>

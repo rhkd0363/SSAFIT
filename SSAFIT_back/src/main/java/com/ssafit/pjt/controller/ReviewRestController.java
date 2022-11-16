@@ -26,6 +26,7 @@ public class ReviewRestController {
 	
 	@GetMapping("review")
 	public ResponseEntity<List<Review>> showReviewList(String video_id){
+		System.out.println(video_id);
 		return new ResponseEntity<List<Review>>(reviewService.showReviewList(video_id),HttpStatus.OK);
 	}
 	
