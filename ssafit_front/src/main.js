@@ -7,6 +7,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
 
+import PortalVue from 'portal-vue'
+
+Vue.use(PortalVue)
+
 Vue.config.productionTip = false
 
 new Vue({
