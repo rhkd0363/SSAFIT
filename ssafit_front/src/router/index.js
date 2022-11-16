@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Join from '../user/Join.vue'
+import Login from '../components/user/LoginPage.vue'
+import Join from '../components/user/JoinPage.vue'
 
 
 Vue.use(VueRouter)

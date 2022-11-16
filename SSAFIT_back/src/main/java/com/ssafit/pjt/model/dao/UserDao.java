@@ -20,5 +20,6 @@ public interface UserDao {
 	//회원정보 수정
 	int updateUser(User user);
 	
+	// 아이디 중복체크
 	User checkUser(String user_id);
 }

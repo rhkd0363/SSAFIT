@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-        <h2>회원 가입</h2>
+        <h2>SIGN UP</h2>
         <fieldset class="text-center">
             <label for="name">이름</label>
             <input type="text" id="name" name="name" class="view" v-model="name" ref="name"/><br/>
             <label for="id">아이디</label>
-            <input type="text" id="id" name="id" class="view" v-model="id" ref="id"/><br/>
+            <input type="text" id="id" name="id" class="view" v-model="id" ref="id"/>
+            <button @click="idCheck">아이디 중복확인</button><br/>
             <label for="pw">비밀번호</label>
             <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw"/><br/>
             <label for="pwCheck">비밀번호 확인</label>
@@ -21,21 +22,21 @@
 
 <script>
 export default {
-    name: "Join",
+    name: "JoinPage",
 
     data() {
         return {
             name: "",
             id: "",
             pw: "",
-            pw2: "",
+            pwCheck: "",
             email: "",
             phoneNumber: "",
         }
     },
 
     methods: {
-      createMovie() {
+      joinUser() {
           // 유효성 검사
           if(this.name.length === 0){
           alert("이름을 입력해주세요.");
@@ -55,9 +56,9 @@ export default {
           return;
           }
 
-          if(this.pw2.length === 0){
+          if(this.pwCheck != this.pw){
           alert("비밀번호를 확인해주세요.");
-          this.$refs.pw2.focus();
+          this.$refs.pwCheck.focus();
           return;
           }
 
@@ -75,15 +76,19 @@ export default {
 
           // 입력 받은 객체 유효성 검사를 한 후 배열에 추가
           let userInfo = {
-            name: this.name,
-            id: this.id,
-            pw: this.pw,
-            pw2: this.pw2,
-            email: this.email,
-            phoneNumber: this.phoneNumber,
+            user_name: this.name,
+            user_id: this.id,
+            user_pw: this.pw,
+            user_email: this.email,
+            user_phone_number: this.phoneNumber,
           };
 
-          this.$emit("join-user", userInfo)
+          this.$store.dispatch("joinUser", userInfo);
+          
+      },
+
+      idCheck(){
+        this.$store.dispatch("idCheck", this.id);
       }
     }
 }

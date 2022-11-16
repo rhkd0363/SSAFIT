@@ -8,8 +8,8 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
           <li class="nav-item"><router-link to="/" class="nav-link">HOME</router-link></li>
-          <li class="nav-item"><router-link to="/join" class="nav-link">회원 가입</router-link></li>
-          <li class="nav-item"><router-link to="/login" class="nav-link">로그인</router-link></li>
+          <li class="nav-item"><router-link to="/join" class="nav-link">SIGN UP</router-link></li>
+          <li class="nav-item"><router-link to="/login" class="nav-link">LOG IN</router-link></li>
         </ul>
     </div>
   </nav>

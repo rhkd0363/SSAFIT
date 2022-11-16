@@ -17,28 +17,35 @@ import com.ssafit.pjt.model.service.UserService;
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
-	
+
 	private final String SUCCESS = "success";
 	private final String FAIL = "fail";
-	
-	
+
 	@Autowired
 	UserService userService;
-	
+
+	@GetMapping("user/idcheck")
+	public ResponseEntity<String> idCheck(String user_id) {
+		if (userService.checkUser(user_id)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+
 	/**
 	 * 
 	 * @param user
 	 * @return 성공 실패 여부
 	 */
 	@PostMapping("user")
-	public ResponseEntity<String> regist(User user){
-		if(userService.checkUser(user.getUser_id())) {			
-			if(userService.registUser(user) == 1)
-				return new ResponseEntity<String>(SUCCESS,HttpStatus.CREATED);
+	public ResponseEntity<String> regist(User user) {
+		if (userService.checkUser(user.getUser_id())) {
+			if (userService.registUser(user) == 1)
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
 		}
-		return new ResponseEntity<String>(FAIL,HttpStatus.OK);
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 
 	 * @param id 회원 ID
@@ -46,26 +53,25 @@ public class UserRestController {
 	 * @return 로그인 정보 일치 시 User 정보 아닐 시 null 값
 	 */
 	@GetMapping("user/login")
-	public ResponseEntity<User> login(String id, String pw){
-		System.out.println(userService.loginUser(id, pw));
-		return new ResponseEntity<User> (userService.loginUser(id, pw),HttpStatus.OK);
+	public ResponseEntity<User> login(String user_id, String user_pw) {
+		System.out.println(userService.loginUser(user_id, user_pw));
+		return new ResponseEntity<User>(userService.loginUser(user_id, user_pw), HttpStatus.OK);
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param user
 	 * @return 수정 성공 실패 여부
 	 */
 	@PutMapping("user")
-	public ResponseEntity<String> modify(User user){
-		if(userService.modifyUser(user) == 1)
-			return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
-		return new ResponseEntity<String>(FAIL,HttpStatus.OK);
+	public ResponseEntity<String> modify(User user) {
+		if (userService.modifyUser(user) == 1)
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("user")
-	public ResponseEntity<List<User>> showList(){
-		return new ResponseEntity<List<User>>(userService.showList(),HttpStatus.OK);
+	public ResponseEntity<List<User>> showList() {
+		return new ResponseEntity<List<User>>(userService.showList(), HttpStatus.OK);
 	}
 }
