@@ -22,18 +22,17 @@ import com.ssafit.pjt.model.service.UserService;
 @RequestMapping("/api")
 public class UserRestController {
 
-<<<<<<< HEAD
-	private final String SUCCESS = "success";
-	private final String FAIL = "fail";
-=======
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
->>>>>>> 620815eb0d70ee1141fb037c91e61264f4edd1d3
 
 	@Autowired
 	UserService userService;
 
-<<<<<<< HEAD
+	/**
+	 * 
+	 * @param user_id
+	 * @return 유저 아이디 중복 확인
+	 */
 	@GetMapping("user/idcheck")
 	public ResponseEntity<String> idCheck(String user_id) {
 		if (userService.checkUser(user_id)) {
@@ -42,21 +41,7 @@ public class UserRestController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 
-=======
-	
->>>>>>> 620815eb0d70ee1141fb037c91e61264f4edd1d3
-	/**
-	 * 
-	 * @param user_id
-	 * @return 유저 아이디 중복 확인
-	 */
-	@GetMapping("user")
-	public ResponseEntity<String> idCheck(String user_id) {
-		if (userService.checkUser(user_id)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
-		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
-	}
+
 	/**
 	 * 
 	 * @param user
@@ -71,24 +56,15 @@ public class UserRestController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 
-<<<<<<< HEAD
-=======
 	@Autowired
 	private JwtUtil jwtUtil;
 
->>>>>>> 620815eb0d70ee1141fb037c91e61264f4edd1d3
 	/**
 	 * 
 	 * @param id 회원 ID
 	 * @param pw 회원 PW
 	 * @return 로그인 정보 일치 시 User 정보 아닐 시 null 값
 	 */
-	@GetMapping("user/login")
-<<<<<<< HEAD
-	public ResponseEntity<User> login(String user_id, String user_pw) {
-		System.out.println(userService.loginUser(user_id, user_pw));
-		return new ResponseEntity<User>(userService.loginUser(user_id, user_pw), HttpStatus.OK);
-=======
 	public ResponseEntity<Map<String, Object>> login(String user_id, String user_pw) {
 		System.out.println(userService.loginUser(user_id, user_pw));
 
@@ -112,7 +88,6 @@ public class UserRestController {
 		}
 
 		return new ResponseEntity<Map<String, Object>>(result, status);
->>>>>>> 620815eb0d70ee1141fb037c91e61264f4edd1d3
 	}
 
 	/**
