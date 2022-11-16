@@ -21,7 +21,6 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		// TODO Auto-generated method stub
 		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET","POST","PUT","DELETE");
 	}
 	
@@ -37,4 +36,5 @@ public class WebConfig implements WebMvcConfigurer{
 				"/v2/api-docs"
 				);
 	}
+	
 }
