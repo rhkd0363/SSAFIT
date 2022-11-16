@@ -41,7 +41,6 @@ public class UserRestController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 
-
 	/**
 	 * 
 	 * @param user
@@ -49,10 +48,8 @@ public class UserRestController {
 	 */
 	@PostMapping("user")
 	public ResponseEntity<String> regist(User user) {
-		if (userService.checkUser(user.getUser_id())) {
-			if (userService.registUser(user) == 1)
-				return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
-		}
+		if (userService.registUser(user) == 1)
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 
@@ -65,6 +62,8 @@ public class UserRestController {
 	 * @param pw 회원 PW
 	 * @return 로그인 정보 일치 시 User 정보 아닐 시 null 값
 	 */
+	
+	@GetMapping("user/login")
 	public ResponseEntity<Map<String, Object>> login(String user_id, String user_pw) {
 		System.out.println(userService.loginUser(user_id, user_pw));
 
@@ -73,9 +72,12 @@ public class UserRestController {
 
 		User user = userService.loginUser(user_id, user_pw);
 
+		
 		try {
 			if (user != null) {
+				user.setUser_pw("");
 				result.put("access-token", jwtUtil.createToken("id", user.getUser_id()));
+				result.put("user", user);
 				result.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} else {
@@ -84,7 +86,7 @@ public class UserRestController {
 			}
 		} catch (UnsupportedEncodingException e) {
 			result.put("message", FAIL);
-			status = HttpStatus.INTERNAL_SERVER_ERROR;			
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
 		return new ResponseEntity<Map<String, Object>>(result, status);
