@@ -11,6 +11,8 @@ public interface UserService {
 	
 	int modifyUser(User user);
 	
+	int updatePass(User user);
+	
 	List<User> showList();
 	
 	Boolean checkUser(String user_id);

@@ -32,8 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY (review_id,reply_content,user_id)
-		 VALUES (#{review_id},#{reply_content},#{user_id})
+		INSERT INTO REPLY (review_id,reply_content,user_id,user_name)
+		 VALUES (#{review_id},#{reply_content},#{user_id},#{user_name})
 	</insert>
 
 	<delete id="deleteReply" parameterType="int">

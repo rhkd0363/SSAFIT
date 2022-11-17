@@ -8,16 +8,33 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
           <li class="nav-item"><router-link to="/" class="nav-link">HOME</router-link></li>
-          <li class="nav-item"><router-link to="/join" class="nav-link">SIGN UP</router-link></li>
-          <li class="nav-item"><router-link to="/login" class="nav-link">LOG IN</router-link></li>
+          <div v-if="mode" style="display: flex; flex-direction: row;">
+            <li class="nav-item"><router-link to="/video" class="nav-link">VIDEO</router-link></li>
+            <li class="nav-item"><router-link to="/community" class="nav-link">COMMUNITY</router-link></li>
+            <li class="nav-item"><router-link to="/myPage" class="nav-link">MYPAGE</router-link></li>
+            <li class="nav-item"><a href="" @click="logout" class="nav-link">LOGOUT</a></li>
+          </div>
+          <div v-else style="display: flex; flex-direction: row;">
+            <li class="nav-item"><router-link to="/join" class="nav-link">SIGN UP</router-link></li>
+            <li class="nav-item"><router-link to="/login" class="nav-link">LOG IN</router-link></li>
+          </div>
         </ul>
     </div>
   </nav>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name: "HeaderNav",
+    computed:{
+      ...mapState(['mode'])
+    },
+    methods: {
+      logout(){
+        this.$store.dispatch('logout');
+      }
+    },
 }
 </script>
 

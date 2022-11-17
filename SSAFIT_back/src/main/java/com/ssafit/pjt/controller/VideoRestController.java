@@ -28,15 +28,16 @@ public class VideoRestController {
 	public ResponseEntity<List<Video>> showList(String keyword, String body_part){
 		HashMap<String, String> params = new HashMap<String, String>();
 		
+		System.out.println(keyword+" "+body_part);
 		params.put("keyword", keyword);
 		params.put("body_part", body_part);
 		
 		
 		return new ResponseEntity<List<Video>>(videoService.showVideoList(params),HttpStatus.OK); 
 	}
-
 	
-	@GetMapping("video/{id}")
+	
+	@GetMapping("video/{video_id}")
 	public ResponseEntity<Video> showVideo(@PathVariable String video_id){
 		return new ResponseEntity<Video>(videoService.showVideo(video_id),HttpStatus.OK);
 	}

@@ -22,4 +22,6 @@ public interface UserDao {
 	
 	// 아이디 중복체크
 	User checkUser(String user_id);
+	
+	int updatePass(User user);
 }

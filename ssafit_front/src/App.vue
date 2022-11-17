@@ -10,10 +10,9 @@ import HeaderNav from "./components/common/HeaderNav.vue";
 
 export default {
     name: "App",
-
     components: {
         HeaderNav,
-    }
+    },
 }
 </script>
 

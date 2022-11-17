@@ -22,90 +22,117 @@ import com.ssafit.pjt.model.service.UserService;
 @RequestMapping("/api")
 public class UserRestController {
 
-    private static final String SUCCESS = "success";
-    private static final String FAIL = "fail";
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
 
-    @Autowired
-    UserService userService;
+	@Autowired
+	UserService userService;
 
-    /**
-     * 
-     * @param user_id
-     * @return 유저 아이디 중복 확인
-     */
-    @GetMapping("user/idcheck")
-    public ResponseEntity<String> idCheck(String user_id) {
-        if (userService.checkUser(user_id)) {
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-        }
-        return new ResponseEntity<String>(FAIL, HttpStatus.OK);
-    }
+	/**
+	 * 
+	 * @param user_id
+	 * @return 유저 아이디 중복 확인
+	 */
+	@GetMapping("user/idcheck")
+	public ResponseEntity<String> idCheck(String user_id) {
+		if (userService.checkUser(user_id)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
 
-    /**
-     * 
-     * @param user
-     * @return 성공 실패 여부
-     */
-    @PostMapping("user")
-    public ResponseEntity<String> regist(User user) {
-        if (userService.registUser(user) == 1)
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
-        return new ResponseEntity<String>(FAIL, HttpStatus.OK);
-    }
+	/**
+	 * 
+	 * @param user_id user_pw
+	 * @return 유저 아이디 중복 확인
+	 */
+	@GetMapping("user/passCheck")
+	public ResponseEntity<String> idCheck(String user_id, String user_pw) {
+		User user = userService.loginUser(user_id, user_pw);
 
-    @Autowired
-    private JwtUtil jwtUtil;
+		if (user == null) {
+			return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+		} else if (user.getUser_pw().equals(user_pw)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
 
-    /**
-     * 
-     * @param id 회원 ID
-     * @param pw 회원 PW
-     * @return 로그인 정보 일치 시 User 정보 아닐 시 null 값
-     */
-    
-    @GetMapping("user/login")
-    public ResponseEntity<Map<String, Object>> login(String user_id, String user_pw) {
-        System.out.println(userService.loginUser(user_id, user_pw));
+	/**
+	 * 
+	 * @param user
+	 * @return 성공 실패 여부
+	 */
+	@PostMapping("user")
+	public ResponseEntity<String> regist(User user) {
+		if (userService.registUser(user) == 1)
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
 
-        HashMap<String, Object> result = new HashMap<String, Object>();
-        HttpStatus status = null;
+	@Autowired
+	private JwtUtil jwtUtil;
 
-        User user = userService.loginUser(user_id, user_pw);
+	/**
+	 * 
+	 * @param id 회원 ID
+	 * @param pw 회원 PW
+	 * @return 로그인 정보 일치 시 User 정보 아닐 시 null 값
+	 */
 
-        
-        try {
-            if (user != null) {
-                user.setUser_pw("");
-                result.put("access-token", jwtUtil.createToken("id", user.getUser_id()));
-                result.put("user", user);
-                result.put("message", SUCCESS);
-                status = HttpStatus.ACCEPTED;
-            } else {
-                result.put("message", FAIL);
-                status = HttpStatus.ACCEPTED;
-            }
-        } catch (UnsupportedEncodingException e) {
-            result.put("message", FAIL);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+	@GetMapping("user/login")
+	public ResponseEntity<Map<String, Object>> login(String user_id, String user_pw) {
+		System.out.println(userService.loginUser(user_id, user_pw));
 
-        return new ResponseEntity<Map<String, Object>>(result, status);
-    }
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		HttpStatus status = null;
 
-    /**
-     * 
-     * @param user
-     * @return 수정 성공 실패 여부
-     */
-    @PutMapping("user")
-    public ResponseEntity<String> modify(User user) {
-        if (userService.modifyUser(user) == 1)
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-        return new ResponseEntity<String>(FAIL, HttpStatus.OK);
-    }
+		User user = userService.loginUser(user_id, user_pw);
 
-    @GetMapping("user")
-    public ResponseEntity<List<User>> showList() {
-        return new ResponseEntity<List<User>>(userService.showList(), HttpStatus.OK);
-    }
+		try {
+			if (user != null) {
+				user.setUser_pw("");
+				result.put("access-token", jwtUtil.createToken("id", user.getUser_id()));
+				result.put("user", user);
+				result.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				result.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (UnsupportedEncodingException e) {
+			result.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(result, status);
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @return 수정 성공 실패 여부
+	 */
+	@PutMapping("user/updatePass")
+	public ResponseEntity<String> updatePass(User user) {
+		if (userService.updatePass(user) == 1)
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+	/**
+	 * 
+	 * @param user
+	 * @return 수정 성공 실패 여부
+	 */
+	@PutMapping("user")
+	public ResponseEntity<String> modify(User user) {
+		if (userService.modifyUser(user) == 1)
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+
+	@GetMapping("user")
+	public ResponseEntity<List<User>> showList() {
+		return new ResponseEntity<List<User>>(userService.showList(), HttpStatus.OK);
+	}
 }

@@ -100,4 +100,9 @@ public class VideoServiceImpl implements VideoService {
 		return 1;
 	}
 
+	@Override
+	public void updateViewCnt(String video_id) {
+		videoDao.updateViewCnt(video_id);
+	}
+
 }

@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService{
 		}
 		return true;
 	}
+
+	@Override
+	public int updatePass(User user) {
+		return userDao.updatePass(user);
+	}
 	
 	
 }

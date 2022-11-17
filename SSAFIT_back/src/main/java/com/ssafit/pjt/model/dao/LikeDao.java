@@ -16,4 +16,5 @@ public interface LikeDao {
 	//좋아요한 영상 목록 조회
 	List<Video> selectLikeList(String user_id);
 	
+	int selectLike(String video_id, String user_id);
 }

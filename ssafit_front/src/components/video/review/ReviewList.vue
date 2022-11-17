@@ -38,17 +38,26 @@ export default {
             review_content : '',
         }
     },
-
+    ref:{
+        reviewContent:''
+    },
     methods: {
         createReview(){
+            if(this.review_content == null | this.review_content.trim() == ''){
+                alert("리뷰 내용을 작성하세요.")
+                return
+            }
+
             let review = {
                 video_id : this.video.video_id,
-                user_id : sessionStorage.getItem("user_id"),
+                user_id : this.user.user_id,
                 review_content : this.review_content,
-                user_name : sessionStorage.getItem("user_name")
+                user_name : this.user.user_name
             }
 
             this.$store.dispatch("registReview",review);
+
+            this.review_content =''
         },
     },
 }

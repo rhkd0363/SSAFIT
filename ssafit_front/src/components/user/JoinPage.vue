@@ -8,21 +8,24 @@
             <input type="text" id="id" name="id" class="view" v-model="id" ref="id"/>
             <button @click="idCheck">아이디 중복확인</button><br/>
             <label for="pw">비밀번호</label>
-            <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw"/><br/>
+            <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)"/><br/>
             <label for="pwCheck">비밀번호 확인</label>
-            <input type="password" id="pwCheck" name="pwCheck" class="view" v-model="pwCheck" ref="pwCheck"/><br/>
+            <input type="password" id="pwCheck" name="pwCheck" class="view" v-model="pwCheck" ref="pwCheck" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)"/><br/>
+            {{vaildPassword}}<br>
             <label for="email">이메일</label>
-            <input type="text" id="email" name="email" class="view" v-model="email" ref="email"/><br/>
+            <input type="text" id="email" name="email" class="view" v-model="email" ref="email" placeholder="abc@gmail.com"/><br/>
+            {{vaildEmail}}<br>
             <label for="phoneNumber">전화번호</label>
             <input type="text" id="phoneNumber" name="phoneNumber" class="view" v-model="phoneNumber" ref="phoneNumber"/><br/>
-            <label for="img">프로필 사진</label>
-            <input type="text" id="img" name="img" class="view" v-model="img" ref="img"/><br/>
-            <button type="button" class="btn btn-warning" @click="joinUser">Join</button>
+            <!-- <label for="img">프로필 사진</label>
+            <input type="text" id="img" name="img" class="view" v-model="img" ref="img"/><br/> -->
+            <button type="button" class="btn btn-warning" @click="joinUser" :disabled="joinCheck">Join</button>
         </fieldset>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "JoinPage",
 
@@ -34,7 +37,32 @@ export default {
             pwCheck: "",
             email: "",
             phoneNumber: "",
+            joinCheck: true,
         }
+    },
+    computed:{
+      vaildPassword(){
+        const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
+          
+          if (!validatePassword.test(this.pw) || !this.pw) {
+              return "영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)"
+          }
+          
+          if(this.pw != this.pwCheck){
+            return "비밀번호가 일치하지 않습니다."
+          }
+
+          return "비밀번호가 일치합니다."
+      },
+      vaildEmail(){
+        const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/
+
+          if (!validateEmail.test(this.email) || !this.email) {
+              return "이메일 주소를 정확히 입력해주세요."
+          }
+
+          return null
+      }
     },
 
     methods: {
@@ -52,22 +80,26 @@ export default {
           return;
           }
 
-          if(this.pw.length === 0){
-          alert("비밀번호를 입력해주세요.");
-          this.$refs.pw.focus();
-          return;
+          const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
+          
+          if (!validatePassword.test(this.pw) || !this.pw) {
+              alert("영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)");
+              this.$refs.email.focus();
+              return
           }
 
-          if(this.pwCheck != this.pw){
-          alert("비밀번호를 확인해주세요.");
-          this.$refs.pwCheck.focus();
-          return;
+          if(this.pw != this.pwCheck){
+            alert("비밀번호가 일치하지 않습니다.");
+            this.$refs.pwCheck.focus();
+            return;
           }
 
-          if(this.email.length === 0){
-          alert("이메일을 입력해주세요.");
-          this.$refs.email.focus();
-          return;
+          const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/
+
+          if (!validateEmail.test(this.email) || !this.email) {
+              alert("이메일 주소를 정확히 입력해주세요.");
+              this.$refs.email.focus();
+              return
           }
 
           if(this.phoneNumber.length === 0){
@@ -85,13 +117,27 @@ export default {
             user_phone_number: this.phoneNumber,
           };
 
-          this.$store.dispatch("joinUser", userInfo);
-          
+          this.$store.dispatch("joinUser", userInfo);  
       },
 
       idCheck(){
-        this.$store.dispatch("idCheck", this.id);
-      }
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/user/idcheck',
+        method: "GET",
+        params: {
+          user_id: this.id
+        }
+      })
+        .then((res) => {
+          if (res.data === "success") {
+            alert("사용 가능한 아이디입니다");
+            this.joinCheck = false
+          }
+          else {
+            alert("중복된 아이디입니다");
+          }
+        })
+      },
     }
 }
 </script>

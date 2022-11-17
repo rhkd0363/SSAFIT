@@ -30,4 +30,9 @@ public class LikeServiceImpl implements LikeService{
 		return likeDao.selectLikeList(user_id);
 	}
 
+	@Override
+	public int showLike(String video_id, String user_id) {
+		return likeDao.selectLike(video_id, user_id);
+	}
+
 }

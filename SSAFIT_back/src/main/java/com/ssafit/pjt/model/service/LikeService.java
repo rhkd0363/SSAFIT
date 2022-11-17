@@ -14,4 +14,5 @@ public interface LikeService {
 	//좋아요한 영상 목록 조회
 	List<Video> showLikeList(String user_id);
 	
+	int showLike(String video_id,String user_id);
 }

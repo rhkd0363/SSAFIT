@@ -27,6 +27,17 @@ public class LikeRestController {
 		return new ResponseEntity<List<Video>>(likeService.showLikeList(user_id),HttpStatus.OK);
 	}
 	
+	@GetMapping("likeOne")
+	public ResponseEntity<String> showLike(String video_id,String user_id){
+		System.out.println(video_id +"  "+user_id);
+		String result = "fail";
+		System.out.println(likeService.showLike(video_id, user_id));
+		if(likeService.showLike(video_id, user_id) != 0) {
+			result = "success";
+		}
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
+	
 	@PostMapping("like")
 	public ResponseEntity<String> registLike(String video_id, String user_id){
 		if(likeService.registLike(video_id, user_id) == 1)

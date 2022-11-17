@@ -1,21 +1,21 @@
 <template>
   <div class="text-bg-secondary p-3" >
-    <div class="main">
-      <div class="text-center">
-        <img name="son_pic" src="../assets/son.jpg" class="rounded">
+    <img name="son_pic" src="../assets/son.jpg" class="rounded" style="z-index: -1; opacity: 70%; position: fixed; width: 100%;">
+    <div>
+      <div style="display: flex; justify-content: center; text-align: center; align-content: center; flex-direction: column;">
+        <button v-if="!mode"><router-link to="/join">SIGN UP</router-link></button>
+        <button v-if="!mode">LOGIN</button>
       </div>
-      <h1 class="jumbotron text-center">Work Hard !</h1>
     </div>
-    <hr color="grey"/>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
-  data() {
-    return {
-    }
+  computed:{
+    ...mapState(['mode'])
   },
 }
 </script>

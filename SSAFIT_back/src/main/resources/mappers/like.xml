@@ -21,4 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM VIDEO_LIKE
 		 WHERE video_id = #{video_id} AND user_id = #{user_id}
 	</delete>
+	
+	<select id="selectLike" parameterType="String" resultType="int">
+		select count(*) from VIDEO_LIKE
+		WHERE video_id = #{video_id} and user_id = #{user_id}
+	</select>
 </mapper>

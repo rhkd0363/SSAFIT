@@ -3,10 +3,13 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../components/user/LoginPage.vue'
 import Join from '../components/user/JoinPage.vue'
-import User from '../views/UserPage.vue'
 import Video from '../views/Video.vue'
+import VideoList from '../components/video/VideoList.vue'
+import VideoDetail from '../components/video/VideoDetail.vue'
 import Community from '../views/Community.vue'
 import MyPage from '../views/MyPage.vue'
+import UpdateUser from '../components/user/UpdateUser.vue'
+import UpdatePass from '../components/user/UpdatePass.vue'
 
 Vue.use(VueRouter)
 
@@ -22,19 +25,36 @@ const routes = [
     component: Join
   },
   {
+    path: '/updateUser',
+    name: 'UpdateUser',
+    component: UpdateUser
+  },
+  {
+    path: '/updatePass',
+    name: 'UpdatePass',
+    component: UpdatePass
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login
   },
   {
-    path: '/user',
-    name: 'User',
-    component: User
-  },
-  {
     path: '/video',
     name: 'Video',
     component: Video,
+    children:[
+      {
+        path:'',
+        name:'VideoList',
+        component: VideoList
+      },
+      {
+        path:'detail',
+        name:'VideoDetail',
+        component: VideoDetail
+      }
+    ]
   },
   {
     path: '/community',

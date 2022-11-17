@@ -14,4 +14,6 @@ public interface VideoService {
 	List<Video> showVideoList(HashMap<String,String> params);
 	
 	Video showVideo(String video_id);
+	
+	void updateViewCnt(String video_id);
 }
