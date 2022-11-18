@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafit.pjt.model.dto.User;
 import com.ssafit.pjt.model.dto.Video;
 import com.ssafit.pjt.model.service.FollowInfoService;
 import com.ssafit.pjt.model.service.FollowService;
@@ -25,19 +26,19 @@ public class FollowRestController {
 	@Autowired
 	FollowInfoService followInfoService;
 	
-	@GetMapping("followLike")
+	@GetMapping("followLikeVideoList")
 	public ResponseEntity<List<Video>> followLike(String user_id){
 		return new ResponseEntity<List<Video>>(followInfoService.showFollowLikeVideo(user_id),HttpStatus.OK);
 	}
 	
-	@GetMapping("following")
-	public ResponseEntity<List<String>> following(String user_id){
-		return new ResponseEntity<List<String>>(followService.showFollowing(user_id),HttpStatus.OK);
+	@GetMapping("followingList")
+	public ResponseEntity<List<User>> following(String search_name, String user_id){
+		return new ResponseEntity<List<User>>(followService.showFollowing(search_name, user_id),HttpStatus.OK);
 	}
 	
-	@GetMapping("follower")
-	public ResponseEntity<List<String>> follower(String user_id){
-		return new ResponseEntity<List<String>>(followService.showFollower(user_id),HttpStatus.OK);
+	@GetMapping("followerList")
+	public ResponseEntity<List<User>> follower(String search_name,String user_id){
+		return new ResponseEntity<List<User>>(followService.showFollower(search_name, user_id),HttpStatus.OK);
 	}
 	
 	@PostMapping("follow")
@@ -53,6 +54,17 @@ public class FollowRestController {
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		return new ResponseEntity<String>("fail",HttpStatus.OK);
 	}
+	
+	@GetMapping("followingCnt")
+	public ResponseEntity<Integer> followingCnt(String user_id){
+		return new ResponseEntity<Integer>(followService.followingCnt(user_id),HttpStatus.OK);
+	}
+	
+	@GetMapping("followerCnt")
+	public ResponseEntity<Integer> followerCnt(String user_id){
+		return new ResponseEntity<Integer>(followService.followerCnt(user_id),HttpStatus.OK);
+	}
+	
 	
 	
 }

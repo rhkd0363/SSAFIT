@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <h3>내가 좋아요한 영상 목록</h3>
-    <h3>My Follower List</h3>
-    <h3>My Following List</h3>
+  <div style="text-align: center;">
+    <router-link to="/community">회원리스트</router-link> | 
+    <router-link to="/community/following">팔로잉 리스트</router-link> | 
+    <router-link to="/community/follower">팔로워 리스트</router-link>
+    <router-view></router-view>
   </div>
 </template>
 

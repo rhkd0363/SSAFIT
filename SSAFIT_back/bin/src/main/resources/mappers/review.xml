@@ -12,8 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertReview" parameterType="Review">
-		INSERT INTO VIDEO_REVIEW (video_id,user_id,review_content)
-		 VALUES (#{video_id},#{user_id},#{review_content})
+		INSERT INTO VIDEO_REVIEW (video_id,user_id,review_content,user_name)
+		 VALUES (#{video_id},#{user_id},#{review_content},#{user_name})
 	</insert>
 
 	<delete id="deleteReview" parameterType="int">
@@ -32,8 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY (review_id,reply_content,user_id)
-		 VALUES (#{review_id},#{reply_content},#{user_id})
+		INSERT INTO REPLY (review_id,reply_content,user_id,user_name)
+		 VALUES (#{review_id},#{reply_content},#{user_id},#{user_name})
 	</insert>
 
 	<delete id="deleteReply" parameterType="int">

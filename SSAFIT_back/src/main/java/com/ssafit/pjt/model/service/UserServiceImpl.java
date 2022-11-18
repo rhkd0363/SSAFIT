@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> showList() {
-		return userDao.selectList();
+	public List<User> showList(String search_name, String user_id) {
+		return userDao.selectList(search_name, user_id);
 	}
 
 	@Override

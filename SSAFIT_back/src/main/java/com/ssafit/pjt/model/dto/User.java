@@ -7,13 +7,14 @@ public class User {
 	private String user_email;
 	private String user_phone_number;
 	private String user_img;
+	private int ref_follow;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	public User(String user_name, String user_id, String user_pw, String user_email, String user_phone_number,
-			String user_img) {
+			String user_img, int ref_follow) {
 		super();
 		this.user_name = user_name;
 		this.user_id = user_id;
@@ -21,6 +22,7 @@ public class User {
 		this.user_email = user_email;
 		this.user_phone_number = user_phone_number;
 		this.user_img = user_img;
+		this.ref_follow = ref_follow;
 	}
 
 	public String getUser_name() {
@@ -71,10 +73,19 @@ public class User {
 		this.user_img = user_img;
 	}
 
+	public int getRef_follow() {
+		return ref_follow;
+	}
+
+	public void setRef_follow(int ref_follow) {
+		this.ref_follow = ref_follow;
+	}
+
 	@Override
 	public String toString() {
 		return "User [user_name=" + user_name + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_email="
-				+ user_email + ", user_phone_number=" + user_phone_number + ", user_img=" + user_img + "]";
+				+ user_email + ", user_phone_number=" + user_phone_number + ", user_img=" + user_img + ", ref_follow="
+				+ ref_follow + "]";
 	}
 	
 }

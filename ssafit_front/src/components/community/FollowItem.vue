@@ -1,0 +1,112 @@
+<template>
+  <tr>
+    <td>{{user.user_name}}</td>
+    <td>
+      <button @click="showFollowProfile">프로필 보기</button>
+    </td>
+    <td :hidden="user.ref_follow == 1">
+      <button @click="follow">Follow</button>
+    </td>
+    <td :hidden="user.ref_follow == 0">
+      <button @click="unFollow">Un-Follow</button>
+    </td>
+  </tr>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "FollowItem",
+  data() {
+    return {};
+  },
+  props: {
+    user: ""
+  },
+  methods: {
+    follow() {
+      axios({
+        url: process.env.VUE_APP_REST_URL + "/follow",
+        method: "POST",
+        params: {
+          user_id: this.$store.state.user.user_id,
+          follow_id: this.user.user_id
+        },
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(res => {
+        if (res.data == "success") {
+          this.user.ref_follow = 1;
+        } else {
+          alert("Follow 실패");
+        }
+      });
+    },
+    unFollow() {
+      axios({
+        url: process.env.VUE_APP_REST_URL + "/follow",
+        method: "DELETE",
+        params: {
+          user_id: this.$store.state.user.user_id,
+          follow_id: this.user.user_id
+        },
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(res => {
+        if (res.data == "success") {
+          this.user.ref_follow = 0;
+        } else {
+          alert("Un - Follow 실패");
+        }
+      });
+    },
+    showFollowProfile() {  
+      let followProfile = {
+        ref_follow: this.user.ref_follow,
+        user_email: this.user.user_email,
+        user_id: this.user.user_id,
+        user_img: this.user.user_img,
+        user_name: this.user.user_name,
+        user_phone_number: this.user.user_phone_number,
+        followingCnt : 0,
+        followerCnt : 0
+      };
+
+      axios({
+        url: process.env.VUE_APP_REST_URL + "/followingCnt",
+        method: "GET",
+        params: {
+          user_id: this.user.user_id
+        },
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(res => {
+        followProfile.followingCnt = res.data;
+      });
+
+      axios({
+        url: process.env.VUE_APP_REST_URL + "/followerCnt",
+        method: "GET",
+        params: {
+          user_id: this.user.user_id
+        },
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(res => {
+        followProfile.followerCnt = res.data;
+      });
+
+      this.$store.state.followProfile = followProfile;
+      this.$router.push("followProfile");
+    }
+  }
+};
+</script>
+
+<style>
+</style>

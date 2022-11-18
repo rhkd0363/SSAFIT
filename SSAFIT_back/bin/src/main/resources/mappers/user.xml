@@ -22,10 +22,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateUser" parameterType="User">
 		UPDATE USER 
 		SET user_name = #{user_name},
-			user_pw= #{user_pw},
 			user_email=#{user_email},
 			user_phone_number=#{user_phone_number},
 			user_img=#{user_img}
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<update id="updatePass" parameterType="User">
+		UPDATE USER 
+		SET user_pw = #{user_pw}
 		WHERE user_id = #{user_id}
 	</update>
 	

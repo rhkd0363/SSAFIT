@@ -10,7 +10,8 @@
       <h3 class="table-dark">팔로잉 cnt</h3>
 
     <router-link to="/updateUser"><button>회원 정보 수정</button></router-link>
-    <router-link to="/updatePass"><button>비밀번호 변경</button></router-link>
+    <router-link to="/updatePass"><button>비밀번호 변경</button></router-link><br>
+    <router-link to="/likeVideoList"><button>좋아요 영상 목록</button></router-link>
   </div>
 </template>
 

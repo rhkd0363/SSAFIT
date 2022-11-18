@@ -5,18 +5,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.ssafit.pjt.model.dao.FollowDao">
 
-	<select id="selectFollowing" parameterType="String" resultType="String">
-		SELECT user_name FROM USER
+	<select id="selectFollowing" parameterType="String" resultType="User">
+		SELECT user_id, user_name, user_email, user_phone_number,
+		       user_img, 1 as ref_follow
+		FROM USER
 		WHERE user_id in (SELECT follow_id from USER_FOLLOW
 						   WHERE user_id = #{user_id}
 						  )
+		<if test="search_name != null and search_name !=''">
+		  AND user_name LIKE CONCAT('%',#{search_name},'%')
+		</if>
 	</select>
 	
-	<select id="selectFollower" parameterType="String" resultType="String">
-		SELECT user_name FROM USER
-		WHERE user_id in (SELECT user_id FROM USER_FOLLOW
-						   WHERE follow_id = #{user_id}
-						  )	
+	<select id="selectFollower" parameterType="String" resultType="User">
+		SELECT A.user_id, A.user_name, A.user_email, A.user_phone_number,
+		       A.user_img, B.follow_yn as ref_follow
+		FROM ( SELECT *
+				 FROM user
+				WHERE user_id in ( SELECT user_id
+									 FROM user_follow
+									WHERE follow_id = #{user_id})
+			  ) A
+		LEFT OUTER JOIN (
+						  SELECT *
+						    FROM user_follow
+						   WHERE user_id = #{user_id}
+						  ) B
+		ON A.user_id = B.follow_id
+		WHERE 1 = 1
+		<if test="search_name != null and search_name !=''">
+		  AND user_name LIKE CONCAT('%',#{search_name},'%')
+		</if>
 	</select>
 	
 	<insert id="insertFollow" parameterType="String">
@@ -28,4 +47,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM USER_FOLLOW
 		 WHERE user_id = #{user_id} AND follow_id = #{follow_id}
 	</delete>
+	
+	<select id="followingCnt" parameterType="String" resultType="int">
+		select count(*) from user_follow where user_id = #{user_id}
+	</select>
+	<select id="followerCnt" parameterType="String" resultType="int">
+		select count(*) from user_follow where follow_id = #{user_id}
+	</select>
 </mapper>

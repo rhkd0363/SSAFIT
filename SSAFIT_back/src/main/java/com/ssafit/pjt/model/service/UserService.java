@@ -13,7 +13,7 @@ public interface UserService {
 	
 	int updatePass(User user);
 	
-	List<User> showList();
+	List<User> showList(String search_name, String user_id);
 	
 	Boolean checkUser(String user_id);
 }

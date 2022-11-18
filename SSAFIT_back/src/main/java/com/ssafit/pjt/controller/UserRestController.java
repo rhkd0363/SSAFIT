@@ -132,7 +132,7 @@ public class UserRestController {
 	}
 
 	@GetMapping("user")
-	public ResponseEntity<List<User>> showList() {
-		return new ResponseEntity<List<User>>(userService.showList(), HttpStatus.OK);
+	public ResponseEntity<List<User>> showList(String search_name, String user_id) {
+		return new ResponseEntity<List<User>>(userService.showList(search_name, user_id), HttpStatus.OK);
 	}
 }

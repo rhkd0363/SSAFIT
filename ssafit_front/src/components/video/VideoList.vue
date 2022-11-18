@@ -40,9 +40,7 @@ export default {
   },
 
   created() {
-    if(!this.videos){
       this.showVideoList()
-    }
   },
 
   computed: {

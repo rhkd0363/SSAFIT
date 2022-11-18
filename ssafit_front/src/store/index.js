@@ -9,13 +9,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    videos: null,
-    video: '',
-    reviews: [],
-    replys: [],
-    like: null,
-    mode: false,
-    user: null
+    videos: null, // 조회한 영상 리스트
+    video: '', // 선택한 영상
+    reviews: [], // 리뷰
+    replys: [], // 리뷰 답글
+    like: null, // 영상 좋아요 확인용도 
+    mode: false, // 로그인 상태 확인 용도
+    user: null, // 로그인된 유저 정보
+    users: null,// 커뮤니티용 유저 목록
+    followProfile : null // 팔로우 유저 프로필용
   },
 
   getters: {
@@ -28,7 +30,6 @@ export default new Vuex.Store({
     SET_VIDEO(state, payload) {
       state.video = payload;
     },
-
     SET_REVIEWS(state, payload) {
       state.reviews = payload;
     },
@@ -38,9 +39,12 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.mode = false
     },
-    LOGIN(state,payload) {
+    LOGIN(state, payload) {
       state.user = payload
       state.mode = true
+    },
+    SET_USERS(state,payload){
+      state.users = payload
     }
   },
 
@@ -72,13 +76,13 @@ export default new Vuex.Store({
           }
           else {
             sessionStorage.setItem("access-token", res.data['access-token']);
-            commit('LOGIN',res.data.user)
+            commit('LOGIN', res.data.user)
             router.push('/')
           }
         })
     },
 
-    logout({commit}) {
+    logout({ commit }) {
       commit('LOGOUT')
       sessionStorage.clear()
       router.push('/')
@@ -124,8 +128,8 @@ export default new Vuex.Store({
           console.log(res)
           if (res.data == 'success') {
             commit('SET_LIKE', true)
-          }else{
-            commit('SET_LIKE',false)
+          } else {
+            commit('SET_LIKE', false)
           }
         })
     },
@@ -154,16 +158,16 @@ export default new Vuex.Store({
         url: process.env.VUE_APP_REST_URL + '/review',
         method: "GET",
         params: {
-          video_id : payload
+          video_id: payload
         },
         headers: {
           "access-token": sessionStorage.getItem("access-token")
         }
       })
-      .then((res) => {
-        console.log(res)
-        commit('SET_REVIEWS', res.data)
-      })
+        .then((res) => {
+          console.log(res)
+          commit('SET_REVIEWS', res.data)
+        })
     },
 
     registReview({ commit }, payload) {
@@ -178,8 +182,8 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          if(res.data == 'success'){
-            this.dispatch('showReview',payload.video_id)
+          if (res.data == 'success') {
+            this.dispatch('showReview', payload.video_id)
           }
         })
     },
@@ -222,6 +226,74 @@ export default new Vuex.Store({
           } else {
             alert('좋아요 취소 실패')
           }
+        })
+    },
+    searchUserList({ commit }, payload) {
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/user',
+        method: "GET",
+        params: payload,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then((res) => {
+          if (res.data) {
+            commit('SET_USERS', res.data)
+          } else {
+            alert('목록 불러오기에 실패했습니다.')
+          }
+        })
+    },
+    searchFollowingList({ commit }, payload) {
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/followingList',
+        method: "GET",
+        params: payload,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then((res) => {
+          if (res.data) {
+            commit('SET_USERS', res.data)
+          } else {
+            alert('목록 불러오기에 실패했습니다.')
+          }
+        })
+    },
+    searchFollowerList({ commit }, payload) {
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/followerList',
+        method: "GET",
+        params: payload,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then((res) => {
+          if (res.data) {
+            commit('SET_USERS', res.data)
+          } else {
+            alert('목록 불러오기에 실패했습니다.')
+          }
+        })
+    },
+   
+
+    showFollowLikeVideoList({ commit }, payload) {
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/followLikeVideoList',
+        method: "GET",
+        params: {
+          user_id : payload
+        },
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then((res) => {
+          commit('SET_VIDEOS', res.data)
         })
     },
   },

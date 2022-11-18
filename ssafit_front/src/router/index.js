@@ -10,6 +10,11 @@ import Community from '../views/Community.vue'
 import MyPage from '../views/MyPage.vue'
 import UpdateUser from '../components/user/UpdateUser.vue'
 import UpdatePass from '../components/user/UpdatePass.vue'
+import UserList from '../components/community/UserList.vue'
+import FollowingList from '../components/community/FollowingList.vue'
+import FollowerList from '../components/community/FollowerList.vue'
+import FollowProfile from '../components/community/FollowProfile.vue'
+import FollowLikeVideo from '../components/community/FollowLikeVideo.vue'
 
 Vue.use(VueRouter)
 
@@ -59,12 +64,39 @@ const routes = [
   {
     path: '/community',
     name: 'Community',
-    component: Community
+    component: Community,
+    children:[
+      {
+        path: '',
+        name: 'UserList',
+        component: UserList,
+      },
+      {
+        path: 'following',
+        name: 'FollowingList',
+        component: FollowingList,
+      },
+      {
+        path: 'follower',
+        name: 'FollowerList',
+        component: FollowerList,
+      },
+      {
+        path: 'followProfile',
+        name: 'FollowProfile',
+        component: FollowProfile,
+      },
+    ]
   },
   {
     path: '/mypage',
     name: 'MyPage',
     component: MyPage
+  },
+  {
+    path: '/likeVideoList',
+    name: 'FollowLikeVideo',
+    component: FollowLikeVideo
   },
 ]
 

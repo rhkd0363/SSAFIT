@@ -12,7 +12,7 @@ public interface UserDao {
 	User selectUser(String user_id, String user_pw);
 	
 	//회원 목록
-	List<User> selectList();
+	List<User> selectList(String search_name, String user_id);
 	
 	//회원 가입
 	int insertUser(User user);
