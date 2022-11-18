@@ -15,12 +15,17 @@ import axios from "axios";
 
 export default {
   name: "UserItem",
+
   data() {
-    return {};
+    return {
+
+    };
   },
+
   props: {
     user: ""
   },
+
   methods: {
     follow() {
       axios({
@@ -41,6 +46,7 @@ export default {
         }
       });
     },
+    
     unFollow() {
       axios({
         url: process.env.VUE_APP_REST_URL + "/follow",

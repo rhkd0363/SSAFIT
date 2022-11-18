@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>{{user.user_name}}</td>
+    <td>{{ user.user_name }}</td>
     <td>
       <button @click="showFollowProfile">프로필 보기</button>
     </td>
@@ -18,13 +18,19 @@ import axios from "axios";
 
 export default {
   name: "FollowItem",
+
   data() {
-    return {};
+    return {
+
+    };
   },
+
   props: {
-    user: ""
+    user: "",
   },
+
   methods: {
+
     follow() {
       axios({
         url: process.env.VUE_APP_REST_URL + "/follow",
@@ -44,6 +50,7 @@ export default {
         }
       });
     },
+    
     unFollow() {
       axios({
         url: process.env.VUE_APP_REST_URL + "/follow",
@@ -63,6 +70,7 @@ export default {
         }
       });
     },
+
     showFollowProfile() {  
       let followProfile = {
         ref_follow: this.user.ref_follow,
@@ -72,7 +80,7 @@ export default {
         user_name: this.user.user_name,
         user_phone_number: this.user.user_phone_number,
         followingCnt : 0,
-        followerCnt : 0
+        followerCnt : 0,
       };
 
       axios({
@@ -85,7 +93,9 @@ export default {
           "access-token": sessionStorage.getItem("access-token")
         }
       }).then(res => {
+        console.log(res);
         followProfile.followingCnt = res.data;
+        console.log(followProfile.followingCnt);
       });
 
       axios({

@@ -3,9 +3,9 @@
         <h2>LOG IN</h2>
         <fieldset class="text-center">
             <label for="id">아이디</label>
-            <input type="text" id="id" name="id" class="view" v-model="id" ref="id"/><br/>
+            <input type="text" id="id" name="id" class="view" @keyup.enter="loginUser" v-model="id" ref="id"/><br/>
             <label for="pw">비밀번호</label>
-            <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw"/><br/>
+            <input type="password" id="pw" name="pw" class="view" @keyup.enter="loginUser" v-model="pw" ref="pw"/><br/>
             <button type="button" class="btn btn-warning" @click="loginUser">Log In</button>
         </fieldset>
     </div>

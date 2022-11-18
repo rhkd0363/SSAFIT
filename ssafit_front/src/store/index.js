@@ -6,24 +6,26 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
-
 export default new Vuex.Store({
   state: {
-    videos: null, // 조회한 영상 리스트
-    video: '', // 선택한 영상
-    reviews: [], // 리뷰
-    replys: [], // 리뷰 답글
-    like: null, // 영상 좋아요 확인용도 
-    mode: false, // 로그인 상태 확인 용도
-    user: null, // 로그인된 유저 정보
-    users: null,// 커뮤니티용 유저 목록
-    followProfile : null // 팔로우 유저 프로필용
+
+    videos: null,           // 조회한 영상 리스트
+    video: '',              // 선택한 영상
+    reviews: [],            // 리뷰
+    replys: [],             // 리뷰 답글
+    like: null,             // 영상 좋아요 확인용도 
+    mode: false,            // 로그인 상태 확인 용도
+    user: null,             // 로그인된 유저 정보
+    users: null,            // 커뮤니티용 유저 목록
+    followProfile: null     // 팔로우 유저 프로필용
+
   },
 
   getters: {
   },
 
   mutations: {
+
     SET_VIDEOS(state, payload) {
       state.videos = payload;
     },
@@ -45,7 +47,8 @@ export default new Vuex.Store({
     },
     SET_USERS(state,payload){
       state.users = payload
-    }
+    },
+
   },
 
   actions: {
@@ -86,6 +89,7 @@ export default new Vuex.Store({
       commit('LOGOUT')
       sessionStorage.clear()
       router.push('/')
+      // alter("다음에 또 만나요")
     },
 
     showVideo({ commit }, payload) {
@@ -133,7 +137,6 @@ export default new Vuex.Store({
           }
         })
     },
-
 
     showVideoList({ commit }, payload) {
       axios({
@@ -208,6 +211,7 @@ export default new Vuex.Store({
           }
         })
     },
+
     removeLike({ commit }, payload) {
       axios({
         url: process.env.VUE_APP_REST_URL + '/like',
@@ -228,6 +232,7 @@ export default new Vuex.Store({
           }
         })
     },
+
     searchUserList({ commit }, payload) {
       axios({
         url: process.env.VUE_APP_REST_URL + '/user',
@@ -245,6 +250,7 @@ export default new Vuex.Store({
           }
         })
     },
+
     searchFollowingList({ commit }, payload) {
       axios({
         url: process.env.VUE_APP_REST_URL + '/followingList',
@@ -262,6 +268,7 @@ export default new Vuex.Store({
           }
         })
     },
+
     searchFollowerList({ commit }, payload) {
       axios({
         url: process.env.VUE_APP_REST_URL + '/followerList',
@@ -280,7 +287,6 @@ export default new Vuex.Store({
         })
     },
    
-
     showFollowLikeVideoList({ commit }, payload) {
       axios({
         url: process.env.VUE_APP_REST_URL + '/followLikeVideoList',
@@ -296,13 +302,15 @@ export default new Vuex.Store({
           commit('SET_VIDEOS', res.data)
         })
     },
+
   },
 
   modules: {
   },
+
   plugins: [
     createPersistedState({
       storage: window.sessionStorage,
-    })
+    }),
   ],
 })

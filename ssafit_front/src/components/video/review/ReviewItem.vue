@@ -1,7 +1,7 @@
 <template>
   <div :hidden="deleteCheck">
     <p>
-      <input type="text" v-model="review.review_content" id="review_content" :disabled="updateCheck == false" /> {{review.user_id}} {{review.reg_date}}
+      <input type="text" v-model="review.review_content" id="review_content" :disabled="updateCheck == false" />{{review.user_id}} {{review.reg_date}}
       <span v-if="review.user_id == user.user_id">
         <button @click="modifyReview" v-if="updateCheck==false">수정하기</button>
         <button @click="deleteReview" v-if="updateCheck==false">삭제</button>
@@ -14,7 +14,7 @@
       <li v-for="reply in replys" :key="reply.reply_id">
         <reply-item :reply="reply"></reply-item>
       </li>
-      <input type="text" placeholder="답글 입력" v-model="reply_content" />
+      <textarea class="form-control" placeholder="Please reply." id="reply_content" v-model="reply_content"></textarea>
       <button @click="createReply">답글 등록</button>
     </ul>
   </div>
@@ -132,5 +132,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#reply_content {
+    width: 30%;
+}
 </style>

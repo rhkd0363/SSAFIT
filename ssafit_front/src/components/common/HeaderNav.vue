@@ -1,35 +1,52 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand">SSAFIT</a>
-    <!-- Toggle Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item"><router-link to="/" class="nav-link">HOME</router-link></li>
-          <div v-if="mode" style="display: flex; flex-direction: row;">
-            <li class="nav-item"><router-link to="/video" class="nav-link">VIDEO</router-link></li>
-            <li class="nav-item"><router-link to="/community" class="nav-link">COMMUNITY</router-link></li>
-            <li class="nav-item"><router-link to="/myPage" class="nav-link">MYPAGE</router-link></li>
-            <li class="nav-item"><a href="" @click="logout" class="nav-link">LOGOUT</a></li>
+  <div>
+    <b-navbar toggleable type="dark" variant="dark">
+      <b-navbar-brand href="#">SSAFIT</b-navbar-brand>
+      <div v-if="mode">
+        <img id="profileImg" :src="`${ user.user_img }`">
+        <!-- 환영인사 -->
+        <span style="color: beige">{{user.user_name}}님 환영합니다</span>
+      </div>
+      <!-- 토글 버튼 -->
+      <b-navbar-toggle target="navbar-toggle-collapse">
+        <template #default="{ expanded }">
+          <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
+          <b-icon v-else icon="chevron-bar-down"></b-icon>
+        </template>
+      </b-navbar-toggle>
+      <b-collapse id="navbar-toggle-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item class="nav-item"><router-link to="/" class="nav-link">HOME</router-link></b-nav-item>
+          <!-- 로그인 되어있을 때 -->
+          <div v-if="mode">
+            <b-nav-item class="nav-item"><router-link to="/video" class="nav-link">VIDEO</router-link></b-nav-item>
+            <b-nav-item class="nav-item"><router-link to="/community" class="nav-link">COMMUNITY</router-link></b-nav-item>
+            <b-nav-item class="nav-item"><router-link to="/myPage" class="nav-link">MYPAGE</router-link></b-nav-item>
+            <b-nav-item class="nav-item"><a href="" @click="logout" class="nav-link">LOGOUT</a></b-nav-item>
           </div>
-          <div v-else style="display: flex; flex-direction: row;">
-            <li class="nav-item"><router-link to="/join" class="nav-link">SIGN UP</router-link></li>
-            <li class="nav-item"><router-link to="/login" class="nav-link">LOG IN</router-link></li>
+          <!-- 로그아웃 되어있을 때 -->
+          <div v-else>
+            <b-nav-item class="nav-item"><router-link to="/join" class="nav-link">SIGN UP</router-link></b-nav-item>
+            <b-nav-item class="nav-item"><router-link to="/login" class="nav-link">LOG IN</router-link></b-nav-item>
           </div>
-        </ul>
-    </div>
-  </nav>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 export default {
     name: "HeaderNav",
+
     computed:{
-      ...mapState(['mode'])
+      ...mapState([
+        'mode',
+        'user'
+      ])
     },
+
     methods: {
       logout(){
         this.$store.dispatch('logout');
@@ -38,29 +55,15 @@ export default {
 }
 </script>
 
-<style>
-a {
-  text-decoration: none;
+<style scoped>
+#profileImg {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-.container {
-  margin: 0px 30px;
-}
-
-.view {
-  width: 80%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  color: #787878;
-  font-size: medium;
-}
-
-label {
-  display: inline-block;
-  width: 130px;
+span {
+  font-size: 25px;
 }
 </style>

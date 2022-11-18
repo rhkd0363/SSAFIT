@@ -6,11 +6,11 @@
         </li>
     </ul>
     
-    <fieldset>
-        <label for="review_content">리뷰 작성 </label>
-        <input type="text" id="review_content" v-model="review_content">
+    <div>
+        <label for="review_content">리뷰 작성</label>
+        <textarea class="form-control" placeholder="Please review." id="review_content" v-model="review_content"></textarea>
         <button @click="createReview">리뷰 등록</button>
-    </fieldset>
+    </div>
   </div>
 </template>
 
@@ -64,5 +64,7 @@ export default {
 </script>
 
 <style>
-
+#review_content {
+    width: 30%;
+}
 </style>

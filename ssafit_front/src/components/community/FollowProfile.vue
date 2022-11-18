@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; flex-direction: row; justify-content: space-between;">
     <div style="width: 50%;">
-        <img src="@/assets/son.jpg"><br> 
+        <img id="profileImg" :src="`${ followProfile.user_img }`"><br> 
         이름 : {{followProfile.user_name}}<br> 
         이메일 : {{followProfile.user_email}}<br> 
         연락처 :  {{followProfile.user_phone_number}}<br> 
@@ -19,11 +19,15 @@ import FollowLikeVideo from './FollowLikeVideo.vue';
 
 export default {
     name : 'FollowProfile',
+
     components:{
         FollowLikeVideo
     },
+    
     computed:{
-        ...mapState(['followProfile'])
+        ...mapState([
+          'followProfile'
+        ])
     }
 }
 </script>
