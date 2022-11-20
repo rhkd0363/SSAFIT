@@ -1,12 +1,10 @@
 <template>
   <div>
-    <b-navbar toggleable type="dark" variant="dark">
-      <b-navbar-brand href="#">SSAFIT</b-navbar-brand>
-      <div v-if="mode">
-        <img id="profileImg" :src="`${ user.user_img }`">
-        <!-- 환영인사 -->
-        <span style="color: beige">{{user.user_name}}님 환영합니다</span>
-      </div>
+    <b-navbar toggleable="lg" type="dark" variant="dark">
+      <!-- 사이드바 버튼 -->
+      <b-button v-b-toggle.sidebar-1 style="background-color: unset; margin: 0; padding: ;">☰</b-button>
+      
+      <b-navbar-brand href="/">&nbsp;SSAFIT</b-navbar-brand>
       <!-- 토글 버튼 -->
       <b-navbar-toggle target="navbar-toggle-collapse">
         <template #default="{ expanded }">
@@ -15,55 +13,104 @@
         </template>
       </b-navbar-toggle>
       <b-collapse id="navbar-toggle-collapse" is-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item class="nav-item"><router-link to="/" class="nav-link">HOME</router-link></b-nav-item>
-          <!-- 로그인 되어있을 때 -->
-          <div v-if="mode">
-            <b-nav-item class="nav-item"><router-link to="/video" class="nav-link">VIDEO</router-link></b-nav-item>
-            <b-nav-item class="nav-item"><router-link to="/community" class="nav-link">COMMUNITY</router-link></b-nav-item>
-            <b-nav-item class="nav-item"><router-link to="/myPage" class="nav-link">MYPAGE</router-link></b-nav-item>
-            <b-nav-item class="nav-item"><a href="" @click="logout" class="nav-link">LOGOUT</a></b-nav-item>
-          </div>
-          <!-- 로그아웃 되어있을 때 -->
-          <div v-else>
-            <b-nav-item class="nav-item"><router-link to="/join" class="nav-link">SIGN UP</router-link></b-nav-item>
-            <b-nav-item class="nav-item"><router-link to="/login" class="nav-link">LOG IN</router-link></b-nav-item>
-          </div>
+        <!-- 로그인 되어있을 때 -->
+        <b-navbar-nav v-if="mode">
+          <b-nav-item class="nav-item">
+            <router-link to="/video" class="nav-link">VIDEO</router-link>
+          </b-nav-item>
+          <b-nav-item class="nav-item">
+            <router-link to="/community" class="nav-link">COMMUNITY</router-link>
+          </b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav class="ml-auto" v-if="mode">
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <img :src=user.user_img style="width: 30px; background-color: white; border-radius: 100%;">&nbsp;
+              <span style="color: white;">{{user.user_name}}</span>님 환영합니다 !
+            </template>
+            <b-dropdown-item href="/myPage">마이페이지</b-dropdown-item>
+            <b-dropdown-item href @click="logout">로그아웃</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+        <!-- 로그아웃 되어있을 때 -->
+        <b-navbar-nav class="ml-auto" v-else>
+          <b-nav-item class="nav-item">
+            <router-link to="/login" class="nav-link">로그인</router-link>
+          </b-nav-item>
+          <b-nav-item class="nav-item">
+            <router-link to="/join" class="nav-link">회원가입</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <!-- 사이드바 -->
+    <b-sidebar id="sidebar-1" title="SSAFIT" shadow>
+      <hr>
+      <!-- 로그인 상태일때 -->
+      <div class="px-3 py-2" v-if="mode">
+        <ul style="margin: 0 0 40px 20px">
+          <h6>VIDEO</h6>
+          <li style="margin: 15px;"><router-link to="/video" style="text-decoration: none;">Video List</router-link></li>
+          <li style="margin: 15px;"><router-link to="/likeVideoList" style="text-decoration: none;">My Favorite Videos</router-link></li>
+          <hr>   
+        </ul>
+
+        <ul  style="margin: 0 0 40px 20px">
+          <h6>COMMUNITY</h6>
+          <li style="margin: 15px;"><router-link to="/community" style="text-decoration: none;">Member List</router-link></li>
+          <li style="margin: 15px;"><router-link to="/community/following" style="text-decoration: none;">Following List</router-link></li>
+          <li style="margin: 15px;"><router-link to="/community/follower" style="text-decoration: none;">Follower List</router-link></li>
+          <hr>   
+        </ul>
+
+        <ul  style="margin: 0 0 40px 20px">
+          <h6>PROFILE</h6>
+          <li style="margin: 15px;"><router-link to="/myPage" style="text-decoration: none;">My Page</router-link></li>
+          <li style="margin: 15px;"><router-link to="/updateUser" style="text-decoration: none;">Change User Info</router-link></li>
+          <li style="margin: 15px;"><router-link to="/updatePass" style="text-decoration: none;">Change PassWord</router-link></li>
+          <hr>   
+        </ul>
+
+        <ul  style="margin: 0 0 40px 20px">
+          <a href @click="logout"><h6>LOGOUT</h6></a>
+        </ul>
+
+      </div>
+      <!-- 로그아웃 상태일때 -->
+      <div class="px-3 py-2" v-else>
+        <ul  style="margin: 0 0 40px 20px">
+          <router-link to="/join" style="text-decoration: none;"><h6>SIGN UP</h6></router-link>
+        </ul>
+        <ul  style="margin: 0 0 40px 20px">
+          <router-link to="/login" style="text-decoration: none;"><h6>LOGIN</h6></router-link>
+        </ul>
+
+      </div>
+
+    </b-sidebar>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
-    name: "HeaderNav",
+  name: "HeaderNav",
 
-    computed:{
-      ...mapState([
-        'mode',
-        'user'
-      ])
-    },
+  computed: {
+    ...mapState(["mode", "user"])
+  },
 
-    methods: {
-      logout(){
-        this.$store.dispatch('logout');
-      }
-    },
-}
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
+  }
+};
 </script>
 
 <style scoped>
-#profileImg {
-  width: 50px;
+.navbar{
   height: 50px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-span {
-  font-size: 25px;
 }
 </style>

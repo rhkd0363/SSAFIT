@@ -1,73 +1,92 @@
 <template>
-  <div class="container">
-    <h2>SIGN UP</h2>
-    <fieldset class="text-center">
-      <label for="name">이름</label>
-      <input type="text" id="name" name="name" class="view" v-model="name" ref="name"/><br/>
-      <label for="id">아이디</label>
-      <input type="text" id="id" name="id" class="view" v-model="id" ref="id"/>
-      <button @click="idCheck">아이디 중복체크</button><br/>
-      <label for="pw">비밀번호</label>
-      <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)"/><br/>
-      <label for="pwCheck">비밀번호 확인</label>
-      <input type="password" id="pwCheck" name="pwCheck" class="view" v-model="pwCheck" ref="pwCheck" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)"/><br/>
-      {{vaildPassword}}<br>
-      <label for="email">이메일</label>
-      <input type="text" id="email" name="email" class="view" v-model="email" ref="email" placeholder="abc@gmail.com"/><br/>
-      {{vaildEmail}}<br>
-      <label for="phoneNumber">전화번호</label>
-      <input type="text" id="phoneNumber" name="phoneNumber" class="view" @keyup.enter="joinUser" v-model="phoneNumber" ref="phoneNumber"/><br/>
-      <label for="img">자동 프로필 사진</label>
-      <button type="button" class="btn btn-primary" @click="createImg">생성</button><br/>
-      <img v-if="showImg" id="profileImg" :src="`${ img }`"><br/>
-      <button type="button" class="btn btn-warning" @click="joinUser" :disabled="joinCheck">Join</button>
-    </fieldset>
+  <div class="joinForm">
+    <br>
+    <h2>회원 가입</h2>
+    <hr>
+    <b-form @submit="joinUser">
+      <b-form-group id="name-group" label="이 름" label-for="name">
+        <b-form-input id="name" v-model="name" placeholder="이름을 입력해주세요." ref="name"></b-form-input>
+      </b-form-group>
+      <b-form-group id="id-group" label="아이디" label-for="id">
+        <div style="display: flex;">
+        <b-form-input id="id" v-model="id" placeholder="ID를 입력해주세요" ref="id"></b-form-input>  
+        <b-button variant="outline-success" @click="idCheck" style="width: 120px;">중복확인</b-button>
+        </div>
+        <small style="margin-left: 10px; color: red;" v-if="joinCheck" >{{idCheckMsg}}</small>
+        <small style="margin-left: 10px; color: green;" v-else >{{idCheckMsg}}</small>
+      </b-form-group>
+      <b-form-group id="pw-group" label="비밀번호" label-for="pw">
+        <b-form-input type="password" id="pw" v-model="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" ref="pw">
+        </b-form-input>  
+      </b-form-group>
+      <b-form-group id="pwCheck-group" label="비밀번호 확인" label-for="pwCheck">
+        <b-form-input type="password" id="pwCheck" v-model="pwCheck" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" ref="pwCheck">
+        </b-form-input>  
+        <small style="margin-left: 10px; color: red;" v-if="pw != pwCheck">{{vaildPassword}}</small>
+        <small style="margin-left: 10px; color: green;" v-else>{{vaildPassword}}</small>
+      </b-form-group>
+      <b-form-group id="email-group" label="이메일" label-for="email">
+        <b-form-input id="email" v-model="email" placeholder="ssafit@ssafy.com" ref="email">
+        </b-form-input>  
+        <small style="margin-left: 10px; color: red;" v-if="vaildEmail != '✔ 이메일 형식이 일치합니다.'" >{{vaildEmail}}</small>
+        <small style="margin-left: 10px; color: green;" v-else >{{vaildEmail}}</small>
+      </b-form-group>
+      <b-form-group id="phoneNumber-group" label="연락처" label-for="phoneNumber">
+        <b-form-input id="phoneNumber" v-model="phoneNumber" ref="phoneNumber">
+        </b-form-input>
+      </b-form-group>
+
+      <div style="text-align: center;">
+       <b-button type="submit" variant="primary" :disabled="joinCheck">회원 가입</b-button>
+      </div>
+    </b-form>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "JoinPage",
 
   data() {
-      return {
-        name: "",
-        id: "",
-        pw: "",
-        pwCheck: "",
-        email: "",
-        phoneNumber: "",
-        joinCheck: true,
-        img: "",
-        showImg: false,
-      }
+    return {
+      name: "",
+      id: "",
+      pw: '',
+      pwCheck: null,
+      email: "",
+      phoneNumber: "",
+      joinCheck: true,
+      img: "",
+      showImg: false,
+      idCheckMsg: "ID 중복확인이 필요합니다. ",
+    };
   },
 
-  computed:{
-    vaildPassword(){
-      const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
-        
-        if (!validatePassword.test(this.pw) || !this.pw) {
-            return "영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)"
-        }
-        
-        if(this.pw != this.pwCheck){
-          return "비밀번호가 일치하지 않습니다."
-        }
+  computed: {
+    vaildPassword() {
+      const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
-        return "비밀번호가 일치합니다."
+      if (!validatePassword.test(this.pw) || !this.pw) {
+        return "✘ 영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)";
+      }
+
+      if (this.pw != this.pwCheck) {
+        return "✘ 비밀번호가 일치하지 않습니다.";
+      }
+
+      return "✔ 비밀번호가 일치합니다.";
     },
 
-    vaildEmail(){
-      const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/
+    vaildEmail() {
+      const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/;
 
-        if (!validateEmail.test(this.email) || !this.email) {
-            return "이메일 주소를 정확히 입력해주세요."
-        }
+      if (!validateEmail.test(this.email) || !this.email) {
+        return "✘ 이메일 주소를 정확히 입력해주세요.";
+      }
 
-        return null
+      return "✔ 이메일 형식이 일치합니다.";
     }
   },
 
@@ -75,47 +94,47 @@ export default {
     // 회원가입 하기
     joinUser() {
       // 유효성 검사
-      if(this.name.length === 0){
+      if (this.name.length === 0) {
         alert("이름을 입력해주세요.");
         this.$refs.name.focus();
         return;
       }
 
-      if(this.id.length === 0){
+      if (this.id.length === 0) {
         alert("아이디를 입력해주세요.");
         this.$refs.id.focus();
         return;
       }
 
-      const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
+      const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
       if (!validatePassword.test(this.pw) || !this.pw) {
         alert("영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)");
         this.$refs.email.focus();
-        return
+        return;
       }
 
-      if(this.pw != this.pwCheck){
+      if (this.pw != this.pwCheck) {
         alert("비밀번호가 일치하지 않습니다.");
         this.$refs.pwCheck.focus();
         return;
       }
 
-      const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/
+      const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/;
 
       if (!validateEmail.test(this.email) || !this.email) {
         alert("이메일 주소를 정확히 입력해주세요.");
         this.$refs.email.focus();
-        return
+        return;
       }
 
-      if(this.phoneNumber.length === 0){
+      if (this.phoneNumber.length === 0) {
         alert("전화번호를 입력해주세요.");
         this.$refs.phoneNumber.focus();
         return;
       }
-      console.log(this.showImg)
-      if(this.showImg === false){
+      console.log(this.showImg);
+      if (this.showImg === false) {
         alert("프로필 사진을 생성해주세요.");
         return;
       }
@@ -127,44 +146,45 @@ export default {
         user_pw: this.pw,
         user_email: this.email,
         user_phone_number: this.phoneNumber,
-        user_img: this.img,
+        user_img: this.img
       };
 
-      this.$store.dispatch("joinUser", userInfo);  
+      this.$store.dispatch("joinUser", userInfo);
     },
 
     // 아이디 중복 체크하기
-    idCheck(){
+    idCheck() {
       axios({
-        url: process.env.VUE_APP_REST_URL + '/user/idcheck',
+        url: process.env.VUE_APP_REST_URL + "/user/idcheck",
         method: "GET",
         params: {
           user_id: this.id
         }
-      })
-      .then((res) => {
+      }).then(res => {
         if (res.data === "success") {
-          alert("사용 가능한 아이디입니다");
-          this.joinCheck = false
+          this.idCheckMsg="✔ 사용 가능한 ID입니다";
+          this.joinCheck = false;
+          this.img =
+            "https://avatars.dicebear.com/api/big-smile/" + this.id + ".svg";
+        } else {
+          this.joinCheck = true;
+          this.idCheckMsg="✘ 이미 사용중인 ID입니다.";
         }
-        else {
-          alert("중복된 아이디입니다");
-        }
-      })
-    },
+      });
+    }
 
-    // 자동 프로필 생성하기
-    createImg() {
-      this.showImg = true;
-      this.img = "https://avatars.dicebear.com/api/big-smile/" + this.id + ".svg"
-    },
+    // // 자동 프로필 생성하기
+    // createImg() {
+    //   this.showImg = true;
+    //   this.img = "https://avatars.dicebear.com/api/big-smile/" + this.id + ".svg"
+    // },
   }
-}
+};
 </script>
 
 <style scoped>
-#profileImg {
-  width: 45%;
-  height: 45%;
+.joinForm {
+  margin-left: 20%;
+  margin-right: 20%;
 }
 </style>

@@ -89,7 +89,7 @@ export default new Vuex.Store({
       commit('LOGOUT')
       sessionStorage.clear()
       router.push('/')
-      // alter("다음에 또 만나요")
+      location.reload(true)
     },
 
     showVideo({ commit }, payload) {

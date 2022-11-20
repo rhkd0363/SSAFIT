@@ -1,14 +1,24 @@
 <template>
-    <div class="container">
-        <h2>LOG IN</h2>
-        <fieldset class="text-center">
-            <label for="id">아이디</label>
-            <input type="text" id="id" name="id" class="view" @keyup.enter="loginUser" v-model="id" ref="id"/><br/>
-            <label for="pw">비밀번호</label>
-            <input type="password" id="pw" name="pw" class="view" @keyup.enter="loginUser" v-model="pw" ref="pw"/><br/>
-            <button type="button" class="btn btn-warning" @click="loginUser">Log In</button>
-        </fieldset>
-    </div>
+  <div class="loginForm">
+    <br>
+    <h2>로그인</h2>
+    <hr>
+    <b-form @submit.prevent="loginUser">
+      <b-form-group id="id-group" label="아이디" label-for="id">
+        <b-form-input id="id" v-model="id" placeholder="ID를 입력해주세요." ref="id">
+        </b-form-input>
+        <small style="margin-left: 10px; color: red;" v-if="id.length === 0" >{{idMsg}}</small>
+      </b-form-group>
+      <b-form-group id="pw-group" label="비밀번호" label-for="pw">
+        <b-form-input type="password" id="pw" v-model="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요.(8-16자)" ref="pw">
+        </b-form-input>  
+        {{pwMsg}}
+      </b-form-group>
+      <div style="text-align: center;">
+       <b-button type="submit" variant="primary">로그인</b-button>
+      </div>
+    </b-form>
+  </div>
 </template>
 
 <script>
@@ -19,22 +29,25 @@ export default {
         return {
             id: "",
             pw: "",
+            idMsg: null,
+            pwMsg: null,
         }
     },
 
     methods: {
       loginUser() {
           // 유효성 검사
+          //11/21 ( alert 메시지 출력에서 -> ID,PW input 태그 밑에 글씨 출력으로 변경 & prevent 이벤트로 화면 리로드 되는거 막음)
           if(this.id.length === 0){
-          alert("아이디를 입력해주세요.");
+          this.idMsg = "아이디를 입력해주세요.";
           this.$refs.id.focus();
-          return;
+          return ;
           }
 
           if(this.pw.length === 0){
-          alert("비밀번호를 입력해주세요.");
+          this.pwMsg = "비밀번호를 입력해주세요.";
           this.$refs.pw.focus();
-          return;
+          return ;
           }
 
           // 입력 받은 객체 유효성 검사를 한 후 배열에 추가
@@ -45,41 +58,19 @@ export default {
 
           this.$store.dispatch("loginUser", loginInfo)
       }
+    },
+    created(){
+      // 로그인 정보가 존재할 시 로그인 화면으로 못 오게 설정
+      if(this.$store.state.user != null){
+        this.$router.push('/')
+      }
     }
 }
 </script>
 
 <style>
-a {
-  text-decoration: none;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.main {
-    text-align: center;
-}
-
-.container {
-  margin: 0px 30px;
-}
-
-.view {
-  width: 80%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  color: #787878;
-  font-size: medium;
-}
-
-label {
-  display: inline-block;
-  width: 130px;
+.loginForm{
+  margin-left: 20%;
+  margin-right: 20%;
 }
 </style>
