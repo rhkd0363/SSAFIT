@@ -155,7 +155,7 @@ export default {
 
     // 아이디 중복 체크하기
     idCheck() {
-      if(this.id.length == 0 | this.id.trim.length == 0){
+      if(this.id.length == 0 | this.id.trim().length == 0){
         this.idCheckMsg="✘ 정확한 ID를 입력해주세요";
         return;
       }

@@ -26,8 +26,8 @@
         <strong>{{ video.channel_title }}</strong>
       </div>
       <div style="margin-right: 3%;">
-        <b-button variant="danger" v-if="like" @click="removeLike">좋아요♥</b-button>
-        <b-button variant="danger" v-else @click="registLike">좋아요♡</b-button>
+        <b-button variant="danger" v-if="like" @click="removeLike"><h3>♥</h3></b-button>
+        <b-button variant="danger" v-else @click="registLike"><h3>♡</h3></b-button>
       </div>
     </div>
     <hr style="margin: 2%;">

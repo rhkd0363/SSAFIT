@@ -33,9 +33,11 @@ export default {
     props:{
         reply :''
     },
+
     computed:{
       ...mapState(['user'])
     },
+
     data() {
       return {
         updateCheck:false,
@@ -43,47 +45,52 @@ export default {
         old_reply_content: this.reply.reply_content,
       }
     },
-    methods: {
-    modifyReply() {
-      this.updateCheck = true
-      setTimeout(() => {
-        this.$refs.reply_content.focus()
-      }, 0.1);
-    },
-    updateReply(){
-      axios({
-        url: process.env.VUE_APP_REST_URL+"/reply",
-        method: "PUT",
-        params: this.reply,
-        headers: {
-          "access-token": sessionStorage.getItem("access-token")
-        }
-      }).then(res => {
-        if (res.data == "success") {
-          this.updateCheck=false
-          this.old_reply_content = this.reply.reply_content
-        }
-      });
-    },
-    cancleModify(){
-      this.updateCheck=false
-      this.reply.reply_content = this.old_reply_content
-    },
 
-    deleteReply(){
-      axios({
+    methods: {
+      modifyReply() {
+        this.updateCheck = true
+        setTimeout(() => {
+          this.$refs.reply_content.focus()
+        }, 0.1);
+      },
+
+      updateReply(){
+        axios({
           url: process.env.VUE_APP_REST_URL+"/reply",
-          method: "DELETE",
-          params: {
-            reply_id : this.reply.reply_id
-          },
+          method: "PUT",
+          params: this.reply,
           headers: {
             "access-token": sessionStorage.getItem("access-token")
           }
         }).then(res => {
           if (res.data == "success") {
-            this.deleteCheck = true
+            this.updateCheck = false;
+            this.old_reply_content = this.reply.reply_content;
+            alert("수정되었습니다.");
           }
+        });
+      },
+
+      cancleModify(){
+        this.updateCheck=false
+        this.reply.reply_content = this.old_reply_content
+      },
+
+      deleteReply(){
+        axios({
+            url: process.env.VUE_APP_REST_URL+"/reply",
+            method: "DELETE",
+            params: {
+              reply_id : this.reply.reply_id
+            },
+            headers: {
+              "access-token": sessionStorage.getItem("access-token")
+            }
+          }).then(res => {
+            if (res.data == "success") {
+              this.deleteCheck = true
+              alert("삭제되었습니다.")
+            }
         });
     }
   },

@@ -7,12 +7,12 @@
       <b-form-group id="id-group" label="ID" label-for="id">
         <b-form-input id="id" v-model="id" placeholder="ID를 입력해주세요." ref="id">
         </b-form-input>
-        <small style="margin-left: 10px; color: red;" v-if="id.length === 0" >{{idMsg}}</small>
+        <small style="margin-left: 10px; color: red;" v-if="id.length === 0">{{ idMsg }}</small>
       </b-form-group>
       <b-form-group id="pw-group" label="PASSWORD" label-for="pw">
         <b-form-input type="password" id="pw" v-model="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요.(8-16자)" ref="pw">
         </b-form-input>  
-        {{pwMsg}}
+        <small style="margin-left: 10px; color: red;" v-if="pw.length === 0" >{{ pwMsg }}</small>
       </b-form-group>
       <div style="text-align: center;">
        <b-button type="submit" variant="primary">LOGIN</b-button>
@@ -32,6 +32,13 @@ export default {
             idMsg: null,
             pwMsg: null,
         }
+    },
+
+    created() {
+      // 로그인 정보가 존재할 시 로그인 화면으로 못 오게 설정
+      if(this.$store.state.user != null){
+        this.$router.push('/')
+      }
     },
 
     methods: {
@@ -59,12 +66,6 @@ export default {
           this.$store.dispatch("loginUser", loginInfo)
       }
     },
-    created(){
-      // 로그인 정보가 존재할 시 로그인 화면으로 못 오게 설정
-      if(this.$store.state.user != null){
-        this.$router.push('/')
-      }
-    }
 }
 </script>
 

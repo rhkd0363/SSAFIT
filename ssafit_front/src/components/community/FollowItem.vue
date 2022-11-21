@@ -1,16 +1,4 @@
 <template>
-  <!-- <tr>
-    <td>{{ user.user_name }}</td>
-    <td>
-      <button @click="showFollowProfile">프로필 보기</button>
-    </td>
-    <td :hidden="user.ref_follow == 1">
-      <button @click="follow">Follow</button>
-    </td>
-    <td :hidden="user.ref_follow == 0">
-      <button @click="unFollow">Un-Follow</button>
-    </td>
-  </tr> -->
   <tr>
     <td colspan="3">
       <div class="d-flex px-2 py-1">

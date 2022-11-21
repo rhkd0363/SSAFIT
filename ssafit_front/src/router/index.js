@@ -15,6 +15,7 @@ import FollowingList from '../components/community/FollowingList.vue'
 import FollowerList from '../components/community/FollowerList.vue'
 import FollowProfile from '../components/community/FollowProfile.vue'
 import FollowLikeVideo from '../components/community/FollowLikeVideo.vue'
+import CommunityBoard from '../components/community/CommunityBoard.vue'
 
 Vue.use(VueRouter)
 
@@ -85,6 +86,11 @@ const routes = [
         path: 'followProfile',
         name: 'FollowProfile',
         component: FollowProfile,
+      },
+      {
+        path: 'board',
+        name: 'board',
+        component: CommunityBoard,
       },
     ]
   },

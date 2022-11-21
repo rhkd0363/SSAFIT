@@ -3,7 +3,7 @@
     <h1>User List</h1>
     <b-input-group style="width: 70%; margin: 1% 15%;">
       <b-input  type="text" v-model="search_name" />
-      <b-button variant="info" style="width: 10%;" @click="searchUserList">검 색</b-button>
+      <b-button variant="info" style="width: 10%;" @click="searchUserList">검색</b-button>
     </b-input-group>
     <div class="card" style="border-left: 0; border-right: 0;">
       <div class="table-responsive">

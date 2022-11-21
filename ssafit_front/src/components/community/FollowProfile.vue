@@ -10,31 +10,31 @@
           <p>{{ followProfile.user_id }}</p>
           <div style="display: flex; justify-content: center">
             <div style="margin-right: 20%">
-              <h2>{{followProfile.followingCnt}}</h2>
-              <p>Following</p>
+              <h2>{{ followProfile.followingCnt }}</h2>
+              <p>FOLLOWING</p>
             </div>
             <div>
-              <h2>{{followProfile.followerCnt}}</h2>
-              <p>Follower</p>
+              <h2>{{ followProfile.followerCnt }}</h2>
+              <p>FOLLOWER</p>
             </div>
           </div>
           <br>
           <div>
-            <h2>{{followProfile.user_email}}</h2>
-            <p>Email</p>
+            <h2>{{ followProfile.user_email }}</h2>
+            <p>EMAIL</p>
             <br>
-            <h2>{{followProfile.user_phone_number}}</h2>
-            <p>PhoneNumber</p>
+            <h2>{{ followProfile.user_phone_number }}</h2>
+            <p>PHONE-NUMBER</p>
           </div>
-          <b-button @click="showList">좋아 영상</b-button>
+          <b-button @click="showList">Show Liked Videos</b-button>
         </div>
       </div>
     </div>
-    <hr :class="{ 'visible': visibleCheck}" style="width: 3px; height: 80vh; background-color: black; margin-right: 3% ;">
+    <hr :class="{ 'visible': visibleCheck }" style="width: 3px; height: 80vh; background-color: black; margin-right: 3% ;">
     
-    <div :class="{ 'visible': visibleCheck}">
+    <div :class="{ 'visible': visibleCheck }">
       <div>
-        <h2><strong>{{followProfile.user_name}} 님이 좋아하는 영상</strong></h2>
+        <h2><strong>{{ followProfile.user_name }}님이 좋아요한 영상</strong></h2>
       </div>
       <follow-like-video :follow_id="followProfile.user_id"></follow-like-video>
     </div>

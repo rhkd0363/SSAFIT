@@ -58,17 +58,18 @@
 
         <ul  style="margin: 0 0 40px 20px">
           <h6>COMMUNITY</h6>
-          <li style="margin: 15px;"><router-link to="/community" style="text-decoration: none;">Member List</router-link></li>
-          <li style="margin: 15px;"><router-link to="/community/following" style="text-decoration: none;">Following List</router-link></li>
-          <li style="margin: 15px;"><router-link to="/community/follower" style="text-decoration: none;">Follower List</router-link></li>
+          <li style="margin: 15px;"><router-link to="/community" style="text-decoration: none;">User List</router-link></li>
+          <li style="margin: 15px;"><router-link to="/community/following" style="text-decoration: none;">My Following</router-link></li>
+          <li style="margin: 15px;"><router-link to="/community/follower" style="text-decoration: none;">My Follower</router-link></li>
+          <li style="margin: 15px;"><router-link to="/community/board" style="text-decoration: none;">Community Board</router-link></li>
           <hr>   
         </ul>
 
         <ul  style="margin: 0 0 40px 20px">
           <h6>PROFILE</h6>
           <li style="margin: 15px;"><router-link to="/myPage" style="text-decoration: none;">My Page</router-link></li>
-          <li style="margin: 15px;"><router-link to="/updateUser" style="text-decoration: none;">Change User Info</router-link></li>
-          <li style="margin: 15px;"><router-link to="/updatePass" style="text-decoration: none;">Change PassWord</router-link></li>
+          <li style="margin: 15px;"><router-link to="/updateUser" style="text-decoration: none;">Edit User Info</router-link></li>
+          <li style="margin: 15px;"><router-link to="/updatePass" style="text-decoration: none;">Edit PassWord</router-link></li>
           <hr>   
         </ul>
 

@@ -1,19 +1,17 @@
 <template>
     <div class="container">
-        <h2>회원 정보 수정</h2>
+        <h2>EDIT USER INFO</h2>
         <fieldset class="text-center">
-            <label for="name">이름</label>
+            <label for="name">NAME</label>
             <input type="text" id="name" name="name" class="view" v-model="user.user_name" ref="name"/><br/>
-            <label for="id">아이디</label>
+            <label for="id">ID</label>
             <input type="text" id="id" name="id" class="view" v-model="user.user_id" ref="id" disabled/>
-            <label for="email">이메일</label>
+            <label for="email">EMAIL</label>
             <input type="text" id="email" name="email" class="view" v-model="user.user_email" ref="email" placeholder="abc@gmail.com"/><br/>
             {{vaildEmail}}<br>
-            <label for="phoneNumber">전화번호</label>
+            <label for="phoneNumber">PHONE-NUMBER</label>
             <input type="text" id="phoneNumber" name="phoneNumber" class="view" v-model="user.user_phone_number" ref="phoneNumber"/><br/>
-            <!-- <label for="img">프로필 사진</label>
-            <input type="text" id="img" name="img" class="view" v-model="user.user_img" ref="img"/><br/> -->
-            <button type="button" class="btn btn-warning" @click="updateUser">수정</button>
+            <b-button type="button" class="btn btn-warning" @click="updateUser">EDIT</b-button>
         </fieldset>
     </div>
 </template>

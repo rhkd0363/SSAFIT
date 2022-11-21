@@ -43,9 +43,11 @@ import axios from 'axios';
 
 export default {
   name: "ReviewItem",
+
   components: {
     ReplyItem
   },
+
   data() {
     return {
       replys: null,
@@ -56,12 +58,15 @@ export default {
       replyCheck:false
     };
   },
+
   props: {
     review: ""
   },
+
   computed: {
     ...mapState(["user"])
   },
+
   methods: {
     showReply(reply_chk) {
       axios({
@@ -122,8 +127,9 @@ export default {
         }
       }).then(res => {
         if (res.data == "success") {
-          this.updateCheck=false
-          this.old_review_content = this.review.review_content
+          this.updateCheck = false;
+          this.old_review_content = this.review.review_content;
+          alert("수정되었습니다.")
         }
       });
     },
@@ -145,6 +151,7 @@ export default {
         }).then(res => {
           if (res.data == "success") {
             this.deleteCheck = true
+            alert("삭제되었습니다.")
           }
         });
     }

@@ -1,16 +1,19 @@
 <template>
     <div class="container">
-        <h2>SIGN UP</h2>
+        <h2>EDIT PASSWORD</h2>
         <fieldset class="text-center">
             <label for="old_pass">기존 비밀번호</label>
             <input type="password" id="old_pass" name="old_pass" class="view" v-model="old_pass" ref="old_pass"/>
-            <button @click="checkPass">비밀번호 확인</button><br/>
+            <b-button class="btn btn-info" @click="checkPass">비밀번호 확인</b-button><br/>
             <label for="pw">비밀번호</label>
             <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" :disabled="old_check"/><br/>
             <label for="pwCheck">비밀번호 확인</label>
             <input type="password" id="pwCheck" name="pwCheck" class="view" v-model="pwCheck" ref="pwCheck" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" :disabled="old_check"/><br/>
-            {{vaildPassword}}<br>
-            <button type="button" class="btn btn-warning" @click="updatePass" :disabled="old_check">Join</button>
+            <div style="color: red">
+              {{vaildPassword}}
+            </div>
+            <br>
+            <button type="button" class="btn btn-warning" @click="updatePass" :disabled="old_check">Confirm</button>
         </fieldset>
     </div>
 </template>

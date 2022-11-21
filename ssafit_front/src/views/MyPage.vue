@@ -2,30 +2,30 @@
   <div class="myPage">
     <div>
       <h1 style="text-align: center;">MY PAGE</h1>
-      <hr />
-      <div style="background-color: beige; border-radius: 1%;">
-        <div style="text-align: center;">
-          <strong style="font-size: 2vw;">ID : {{user.user_id}}</strong>
+      <hr/>
+      <div style="background-color: lightskyblue; border-radius: 1%;">
+        <div style="text-align: left; margin-left: 7%; padding-top: 3%">
+          <strong style="font-size: 2vw;">{{ user.user_id }}</strong>
         </div>
         <hr style="margin-left: 2%; margin-right: 2%;" />
         <div style="display: flex; align-items: center;">
           <div style="width: 25%; margin: 0% 5% 0% 5%;">
             <img
               :src="`${ user.user_img }`"
-              style="width: 100%; background-color: white; border-radius: 100%;"
+              style="width: 100%; background-color: steelblue; border-radius: 100%;"
             />
           </div>
           <div style="text-align: center; width: 50%;">
             <div style="display: flex; justify-content: space-around;">
               <div>
-                <strong style="font-size: 4vw;">{{followerCnt}}</strong>
+                <strong style="font-size: 4vw;">{{ followerCnt }}</strong>
                 <p>
                   <strong style="font-size: 2vw;">FOLLOWER</strong>
                 </p>
               </div>
               <hr style="background-color: rgba(0,0,0,0.1); height: 9vw; width: 1.5px;" />
               <div>
-                <strong style="font-size: 4vw;">{{followingCnt}}</strong>
+                <strong style="font-size: 4vw;">{{ followingCnt }}</strong>
                 <p>
                   <strong style="font-size: 2vw;">FOLLOWING</strong>
                 </p>
@@ -48,16 +48,16 @@
         <hr style="margin-left: 2%; margin-right: 2%;" />
         <div style="margin: 4%; display: flex; justify-content: space-between;">
           <div>
-            <h4>NAME : {{user.user_name}}</h4>
+            <h4>NAME : {{ user.user_name }}</h4>
             <br />
-            <h4>EMAIL : {{user.user_email}}</h4>
+            <h4>EMAIL : {{ user.user_email }}</h4>
             <br />
-            <h4>PHONE-NUMBER : {{user.user_phone_number}}</h4>
+            <h4>PHONE-NUMBER : {{ user.user_phone_number }}</h4>
             <br />
           </div>
           <div style="justify-content: center; align-self: center;">
             <router-link to="/likeVideoList">
-              <b-button variant="info">Watch Favorite Videos</b-button>
+              <b-button variant="info">My Favorite Videos</b-button>
             </router-link>
           </div>
         </div>
