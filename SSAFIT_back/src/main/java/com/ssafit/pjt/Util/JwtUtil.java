@@ -20,7 +20,7 @@ public class JwtUtil {
 				.setHeaderParam("arg","HS256")
 				.setHeaderParam("typ", "JWT")
 				.claim(claimId, data)
-				.setExpiration(new Date(System.currentTimeMillis()+60*1000*60)) // 토큰 유지시간
+//				.setExpiration(new Date(System.currentTimeMillis()+60*1000*60)) // 토큰 유지시간
 				.signWith(SignatureAlgorithm.HS256, SALT.getBytes("UTF-8"))
 				.compact();
 	}

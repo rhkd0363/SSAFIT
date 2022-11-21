@@ -29,17 +29,17 @@
               <img :src=user.user_img style="width: 30px; background-color: white; border-radius: 100%;">&nbsp;
               <span style="color: white;">{{user.user_name}}</span>님 환영합니다 !
             </template>
-            <b-dropdown-item href="/myPage">마이페이지</b-dropdown-item>
-            <b-dropdown-item href @click="logout">로그아웃</b-dropdown-item>
+            <b-dropdown-item href="/myPage">MYPAGE</b-dropdown-item>
+            <b-dropdown-item href @click="logout">LOGOUT</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
         <!-- 로그아웃 되어있을 때 -->
         <b-navbar-nav class="ml-auto" v-else>
           <b-nav-item class="nav-item">
-            <router-link to="/login" class="nav-link">로그인</router-link>
+            <router-link to="/login" class="nav-link">LOGIN</router-link>
           </b-nav-item>
           <b-nav-item class="nav-item">
-            <router-link to="/join" class="nav-link">회원가입</router-link>
+            <router-link to="/join" class="nav-link">SIGN UP</router-link>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

@@ -6,7 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ssafit.pjt.model.dao.ReviewDao">
 
 	<select id="selectReviewList" parameterType="String" resultType="Review">
-		SELECT * from VIDEO_REVIEW
+		SELECT video_review.*, (select user_img from user where user.user_id = video_review.user_id) user_img
+		from VIDEO_REVIEW
 		 WHERE video_id = #{video_id}
 		ORDER BY review_id
 	</select>
@@ -26,7 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="selectReplyList" parameterType="int" resultType="Reply">
-		SELECT * from REPLY
+		SELECT reply.*, (select user_img from user where user.user_id = reply.user_id) user_img
+		from REPLY
 		 WHERE review_id = #{review_id}
 		ORDER BY reply_id
 	</select>

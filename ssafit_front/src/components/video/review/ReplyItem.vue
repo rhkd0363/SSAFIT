@@ -1,15 +1,28 @@
 
 <template>
-  <div :hidden="deleteCheck">
-    &nbsp;&nbsp;&nbsp;&nbsp;→
-    <span>내용 :  <input type="text" v-model="reply.reply_content" id="reply_content" :disabled="updateCheck == false" />
-      작성일자 : {{reply.reg_date}} 작성자 : {{reply.user_name}}</span>
-    <span v-if="reply.user_id == user.user_id">
-      <button @click="modifyReply" v-if="updateCheck==false">수정하기</button>
-      <button @click="deleteReply" v-if="updateCheck==false">삭제</button>
-      <button @click="updateReply" v-if="updateCheck==true">수정완료</button>
-      <button @click="cancleModify" v-if="updateCheck==true">취소</button>
-    </span>
+  <div :hidden="deleteCheck" style="margin-left: 5%;">
+    <hr>
+    <div style="display: flex; justify-content: space-between;">
+      <div style="display: flex; width: 100%; ">
+        <img :src="reply.user_img" style="width:35px; border-radius: 100%; background-color: #c9c1c1; align-self: center;">
+        <div style="display: flex; flex-direction: column; align-items: baseline; margin-left: 1%;">
+          <strong>{{reply.user_name}}</strong>
+          <small style="font-size: 3px;">{{reply.reg_date}}</small>
+        </div>
+      </div>
+      <div style="display: flex; margin-right: 1%;">
+        <b-button @click="modifyReply" v-if="reply.user_id == user.user_id & updateCheck==false" variant="outline-primary" style="font-size: 5px; min-width: 50px; margin-right: 2%; height: 25pt;">수정</b-button>
+        <b-button @click="deleteReply" v-if="reply.user_id == user.user_id & updateCheck==false" variant="outline-danger" style="font-size: 5px; min-width: 50px;margin-right: 2%; height: 25pt;">삭제</b-button>
+        <b-button @click="updateReply" v-if="reply.user_id == user.user_id & updateCheck==true" variant="outline-primary" style="font-size: 5px; min-width: 50px;margin-right: 2%; height: 25pt;">완료</b-button>
+        <b-button @click="cancleModify" v-if="reply.user_id == user.user_id & updateCheck==true" variant="outline-secondary" style="font-size: 5px; min-width: 50px;margin-right: 2%; height: 25pt;">취소</b-button>
+      </div>
+    </div>
+
+
+    <div style="display: flex;">
+      <input class="form-control" v-model="reply.reply_content" ref="reply_content" id="reply_content" style="background-color: white; border: 0;" :disabled="updateCheck == false">
+    </div>
+
   </div>
 </template>
 
@@ -33,6 +46,9 @@ export default {
     methods: {
     modifyReply() {
       this.updateCheck = true
+      setTimeout(() => {
+        this.$refs.reply_content.focus()
+      }, 0.1);
     },
     updateReply(){
       axios({

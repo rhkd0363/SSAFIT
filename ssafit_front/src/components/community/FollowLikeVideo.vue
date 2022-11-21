@@ -1,10 +1,16 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="video in videos" :key="video.video_id">
+  <div style="width: 540px">
+    <b-list-group horizontal="md" style="display: flex; flex-wrap: wrap; width: 540px">
+      <b-list-group-item v-for="video in videos.slice((currentPage-1)*perPage,(currentPage-1)*perPage+perPage)" :key="video.video_id" style="border: 0px; border-radius: 3%;">
         <video-item :video="video"></video-item>
-      </li>
-    </ul>
+      </b-list-group-item>
+    </b-list-group>
+
+    <div class="overflow-auto" style="margin: 1%;">
+      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table">
+
+      </b-pagination>
+    </div>
   </div>
 </template>
 
@@ -18,7 +24,16 @@ export default {
     VideoItem,
   },
   computed: {
-    ...mapState(["videos",'user'])
+    ...mapState(["videos",'user']),
+    rows(){
+      return this.videos.length
+    }
+  },
+  data(){
+    return{
+      perPage: 18,
+      currentPage : 1,
+    }
   },
   props: {
     follow_id: ""

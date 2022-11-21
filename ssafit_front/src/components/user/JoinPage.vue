@@ -1,45 +1,49 @@
 <template>
   <div class="joinForm">
+    <img src="@/assets/SINGUP_BANNER.jpg" style="margin-top: 1%; border-radius: 1%; z-index: -1; opacity: 80%; position: absolute; width: 70%;">
+    <!-- <video autoplay loop muted src="@/assets/SingUPBanner.mp4" style="z-index: -1; opacity: 100%; position: absolute; width: 80%;"></video> -->
     <br>
-    <h2>회원 가입</h2>
-    <hr>
-    <b-form @submit="joinUser">
-      <b-form-group id="name-group" label="이 름" label-for="name">
-        <b-form-input id="name" v-model="name" placeholder="이름을 입력해주세요." ref="name"></b-form-input>
+    <div style="background-color: rgba(255,255,255,0.8); width: 70%; padding: 2%; margin-top: 5%;">
+      <h2>SIGN UP</h2>
+      <hr>
+      <b-form @submit.prevent="joinUser">
+        <b-form-group id="name-group" label="NAME" label-for="name">
+          <b-form-input id="name" v-model="name" placeholder="Enter Your Name!" ref="name"></b-form-input>
       </b-form-group>
-      <b-form-group id="id-group" label="아이디" label-for="id">
+      <b-form-group id="id-group" label="ID" label-for="id">
         <div style="display: flex;">
-        <b-form-input id="id" v-model="id" placeholder="ID를 입력해주세요" ref="id"></b-form-input>  
-        <b-button variant="outline-success" @click="idCheck" style="width: 120px;">중복확인</b-button>
+          <b-form-input id="id" v-model="id" placeholder="Enter Your ID!" ref="id"></b-form-input>  
+          <b-button variant="outline-success" @click="idCheck" style="width: 160px;">VALID CHECK</b-button>
         </div>
         <small style="margin-left: 10px; color: red;" v-if="joinCheck" >{{idCheckMsg}}</small>
         <small style="margin-left: 10px; color: green;" v-else >{{idCheckMsg}}</small>
       </b-form-group>
-      <b-form-group id="pw-group" label="비밀번호" label-for="pw">
-        <b-form-input type="password" id="pw" v-model="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" ref="pw">
+      <b-form-group id="pw-group" label="PASSWORD" label-for="pw">
+        <b-form-input type="password" id="pw" v-model="pw" placeholder="Enter Your Password!" ref="pw">
         </b-form-input>  
       </b-form-group>
-      <b-form-group id="pwCheck-group" label="비밀번호 확인" label-for="pwCheck">
-        <b-form-input type="password" id="pwCheck" v-model="pwCheck" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" ref="pwCheck">
+      <b-form-group id="pwCheck-group" label="CONFIRM" label-for="pwCheck">
+        <b-form-input type="password" id="pwCheck" v-model="pwCheck" placeholder="Enter Your Password Again!" ref="pwCheck">
         </b-form-input>  
         <small style="margin-left: 10px; color: red;" v-if="pw != pwCheck">{{vaildPassword}}</small>
         <small style="margin-left: 10px; color: green;" v-else>{{vaildPassword}}</small>
       </b-form-group>
-      <b-form-group id="email-group" label="이메일" label-for="email">
+      <b-form-group id="email-group" label="EMAIL" label-for="email">
         <b-form-input id="email" v-model="email" placeholder="ssafit@ssafy.com" ref="email">
         </b-form-input>  
         <small style="margin-left: 10px; color: red;" v-if="vaildEmail != '✔ 이메일 형식이 일치합니다.'" >{{vaildEmail}}</small>
         <small style="margin-left: 10px; color: green;" v-else >{{vaildEmail}}</small>
       </b-form-group>
-      <b-form-group id="phoneNumber-group" label="연락처" label-for="phoneNumber">
-        <b-form-input id="phoneNumber" v-model="phoneNumber" ref="phoneNumber">
+      <b-form-group id="phoneNumber-group" label="PHONE-NUMBER" label-for="phoneNumber">
+        <b-form-input id="phoneNumber" v-model="phoneNumber" placeholder="Enter Your Phone Number!" ref="phoneNumber">
         </b-form-input>
       </b-form-group>
-
+      
       <div style="text-align: center;">
-       <b-button type="submit" variant="primary" :disabled="joinCheck">회원 가입</b-button>
+        <b-button type="submit" variant="primary" :disabled="joinCheck">SIGN UP</b-button>
       </div>
     </b-form>
+  </div>
   </div>
 </template>
 
@@ -133,11 +137,6 @@ export default {
         this.$refs.phoneNumber.focus();
         return;
       }
-      console.log(this.showImg);
-      if (this.showImg === false) {
-        alert("프로필 사진을 생성해주세요.");
-        return;
-      }
 
       // 입력 받은 객체 유효성 검사를 한 후 배열에 추가
       let userInfo = {
@@ -150,10 +149,17 @@ export default {
       };
 
       this.$store.dispatch("joinUser", userInfo);
+
+      this.$router.push('/')
     },
 
     // 아이디 중복 체크하기
     idCheck() {
+      if(this.id.length == 0 | this.id.trim.length == 0){
+        this.idCheckMsg="✘ 정확한 ID를 입력해주세요";
+        return;
+      }
+
       axios({
         url: process.env.VUE_APP_REST_URL + "/user/idcheck",
         method: "GET",
@@ -184,7 +190,9 @@ export default {
 
 <style scoped>
 .joinForm {
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
+  display: flex;
+  justify-content: center;
 }
 </style>

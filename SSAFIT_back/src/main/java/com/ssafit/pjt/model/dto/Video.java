@@ -8,13 +8,14 @@ public class Video {
 	private String thumbnail_url;
 	private int view_cnt;
 	private String body_part;
+	private String channel_Banner;
 	
 	public Video() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Video(String video_id, String video_title, String channel_title, String channel_id, String thumbnail_url,
-			int view_cnt, String body_part) {
+			int view_cnt, String body_part, String channel_Banner) {
 		super();
 		this.video_id = video_id;
 		this.video_title = video_title;
@@ -23,6 +24,7 @@ public class Video {
 		this.thumbnail_url = thumbnail_url;
 		this.view_cnt = view_cnt;
 		this.body_part = body_part;
+		this.channel_Banner = channel_Banner;
 	}
 
 	public String getVideo_id() {
@@ -81,14 +83,13 @@ public class Video {
 		this.body_part = body_part;
 	}
 
-	@Override
-	public String toString() {
-		return "Video [video_id=" + video_id + ", video_title=" + video_title + ", channel_title=" + channel_title
-				+ ", channel_id=" + channel_id + ", thumbnail_url=" + thumbnail_url + ", view_cnt=" + view_cnt
-				+ ", body_part=" + body_part + "]";
+	public String getChannel_Banner() {
+		return channel_Banner;
 	}
 
-	
+	public void setChannel_Banner(String channel_Banner) {
+		this.channel_Banner = channel_Banner;
+	}
 	
 	
 }

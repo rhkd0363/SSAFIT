@@ -1,21 +1,21 @@
 <template>
   <div class="loginForm">
     <br>
-    <h2>로그인</h2>
+    <h2>LOGIN</h2>
     <hr>
     <b-form @submit.prevent="loginUser">
-      <b-form-group id="id-group" label="아이디" label-for="id">
+      <b-form-group id="id-group" label="ID" label-for="id">
         <b-form-input id="id" v-model="id" placeholder="ID를 입력해주세요." ref="id">
         </b-form-input>
         <small style="margin-left: 10px; color: red;" v-if="id.length === 0" >{{idMsg}}</small>
       </b-form-group>
-      <b-form-group id="pw-group" label="비밀번호" label-for="pw">
+      <b-form-group id="pw-group" label="PASSWORD" label-for="pw">
         <b-form-input type="password" id="pw" v-model="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요.(8-16자)" ref="pw">
         </b-form-input>  
         {{pwMsg}}
       </b-form-group>
       <div style="text-align: center;">
-       <b-button type="submit" variant="primary">로그인</b-button>
+       <b-button type="submit" variant="primary">LOGIN</b-button>
       </div>
     </b-form>
   </div>

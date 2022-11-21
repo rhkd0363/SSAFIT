@@ -36,7 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectList" parameterType="String" resultType="User">
 		SELECT user.user_id, user.user_name, user.user_email, user.user_phone_number
-		      ,user.user_img, user_follow.follow_yn as ref_follow
+		      ,user.user_img, user_follow.follow_yn as ref_follow,
+		      (select count(*) from user_follow a where a.user_id = user.user_id) followingCnt,
+		      (select count(*) from user_follow a where a.follow_id = user.user_id) followerCnt
 		  FROM user
 		LEFT OUTER JOIN user_follow 
 		    ON user.user_id = user_follow.follow_id

@@ -83,7 +83,7 @@ public class VideoServiceImpl implements VideoService {
 				video.setVideo_id(itemDtl.getJSONObject("id").getString("videoId"));
 				video.setVideo_title(itemDtl.getJSONObject("snippet").getString("title"));
 				video.setThumbnail_url(itemDtl.getJSONObject("snippet").getJSONObject("thumbnails")
-						.getJSONObject("default").getString("url"));
+						.getJSONObject("high").getString("url"));
 				video.setChannel_title(itemDtl.getJSONObject("snippet").getString("channelTitle"));
 				video.setChannel_id(itemDtl.getJSONObject("snippet").getString("channelId"));
 				video.setBody_part("복부");

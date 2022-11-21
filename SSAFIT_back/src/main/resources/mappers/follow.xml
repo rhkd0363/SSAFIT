@@ -7,7 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectFollowing" parameterType="String" resultType="User">
 		SELECT user_id, user_name, user_email, user_phone_number,
-		       user_img, 1 as ref_follow
+		       user_img, 1 as ref_follow,
+		      (select count(*) from user_follow a where a.user_id = user.user_id) followingCnt,
+		      (select count(*) from user_follow a where a.follow_id = user.user_id) followerCnt
 		FROM USER
 		WHERE user_id in (SELECT follow_id from USER_FOLLOW
 						   WHERE user_id = #{user_id}
@@ -19,7 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectFollower" parameterType="String" resultType="User">
 		SELECT A.user_id, A.user_name, A.user_email, A.user_phone_number,
-		       A.user_img, B.follow_yn as ref_follow
+		       A.user_img, B.follow_yn as ref_follow,	       
+		      (select count(*) from user_follow a where a.user_id = user.user_id) followingCnt,
+		      (select count(*) from user_follow a where a.follow_id = user.user_id) followerCnt
 		FROM ( SELECT *
 				 FROM user
 				WHERE user_id in ( SELECT user_id
