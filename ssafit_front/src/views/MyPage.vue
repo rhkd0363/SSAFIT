@@ -63,20 +63,15 @@
         </div>
       </div>
     </div>
-    <calendar-view></calendar-view>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import axios from 'axios';
-import CalendarView from '@/components/user/CalendarView.vue';
 
 export default {
   name: "MyPage",
-  components:{
-    CalendarView,
-  },
   data() {
     return {
       followerCnt : 0,

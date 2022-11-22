@@ -21,6 +21,9 @@
           <b-nav-item class="nav-item">
             <router-link to="/community" class="nav-link">COMMUNITY</router-link>
           </b-nav-item>
+          <b-nav-item class="nav-item">
+            <router-link to="/trekking" class="nav-link">TREKKING</router-link>
+          </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-if="mode">
           <b-nav-item-dropdown right>

@@ -20,6 +20,7 @@ export default new Vuex.Store({
     followProfile: null,     // 팔로우 유저 프로필용
     boards:[],
     board:'',
+    trekkingCourse : '',
   },
 
   getters: {
@@ -57,7 +58,7 @@ export default new Vuex.Store({
     },
     UPDATE_BOARD(state, payload){
       state.board = payload
-    }
+    },
   },
 
   actions: {
@@ -386,7 +387,7 @@ export default new Vuex.Store({
       }).catch((err)=> {
         console.log(err)
       })
-    }
+    },
   },
 
   modules: {

@@ -89,4 +89,26 @@ CREATE TABLE `board` (
   PRIMARY KEY (`id`,`user_id`),
   KEY `FK_BOARD_user_id_USER_user_id` (`user_id`),
   CONSTRAINT `FK_BOARD_user_id_USER_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='게시글 테이블'
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='게시글 테이블';
+
+
+#===================================================
+CREATE TABLE `trekking_course` (
+  `ESNTL_ID` varchar(100) NOT NULL COMMENT '코스 ID',
+  `WLK_COURS_FLAG_NM` varchar(300) COMMENT '산책경로구분명',
+  `WLK_COURS_NM` varchar(300) COMMENT '산책경로명',
+  `COURS_DC` text COMMENT '경로설명',
+  `SIGNGU_NM`varchar(300) COMMENT '시군구명',
+  `COURS_LEVEL_NM` varchar(300) COMMENT '경로레벨명',
+  `COURS_LT_CN` varchar(600) COMMENT '경로길이내용',
+  `COURS_DETAIL_LT_CN` varchar(600) COMMENT '경로상세길이내용',
+  `ADIT_DC` text COMMENT '추가설명',
+  `COURS_TIME_CN` varchar(600) COMMENT '경로시간내용',
+  `OPTN_DC` varchar(600) COMMENT '옵션설명',
+  `TOILET_DC` varchar(600) COMMENT '화장실설명',
+  `CVNTL_NM` varchar(300) COMMENT '편의시설명',
+  `LNM_ADDR` varchar(300) COMMENT '지번주소',
+  `COURS_SPOT_LA` varchar(20) COMMENT '경로지점위도',
+  `COURS_SPOT_LO` varchar(20) COMMENT '경로지점경도',
+  PRIMARY KEY (`ESNTL_ID`)
+) ENGINE=InnoDB default character set utf8 collate utf8_general_ci COMMENT='트레킹코스 테이블';

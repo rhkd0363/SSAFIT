@@ -16,10 +16,12 @@ import FollowerList from '../components/community/FollowerList.vue'
 import FollowProfile from '../components/community/FollowProfile.vue'
 import FollowLikeVideo from '../components/community/FollowLikeVideo.vue'
 import CommunityBoard from '../components/community/CommunityBoard.vue'
-import BoardCreate from '../components/community/board/BoardCreate.vue'
 import BoardList from "../components/community/board/BoardList.vue"
 import BoardDetail from "../components/community/board/BoardDetail.vue"
 import BoardUpdate from "../components/community/board/BoardUpdate.vue"
+import TrekkingView from "../views/TrekkingView.vue"
+import TrekkingHome from "../components/trekking/TrekkingHome.vue"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -37,6 +39,17 @@ const routes = [
     path: '/updateUser',
     name: 'UpdateUser',
     component: UpdateUser
+  },
+  {
+    path: '/trekking',
+    component: TrekkingView,
+    children:[
+      {
+        path: '',
+        name : 'TrekkingHome',
+        component: TrekkingHome,
+      }
+    ]
   },
   {
     path: '/updatePass',

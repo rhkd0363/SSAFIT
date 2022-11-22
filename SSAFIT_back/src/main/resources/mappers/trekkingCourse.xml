@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafit.pjt.model.dao.TrekkingCourseDao">
+	<select id="selectCourseList" parameterType="String" resultType="TrekkingCourse">
+		SELECT *
+		  FROM trekking_course
+		 WHERE 1 = 1
+		<if test="searchKeyword != null and searchKeyword != ''">
+		   AND LNM_ADDR LIKE CONCAT('%',#{searchKeyword},'%') <!-- 지역이름  -->
+		</if>
+		<if test="difficulty != null and difficulty != 'null' and difficulty != ''">
+		   AND COURS_LEVEL_NM = #{difficulty} <!-- 경로 레벨(난이도)  -->
+		</if>
+		<if test="distance != null and distance != 'null' and distance != ''">
+		   AND COURS_LT_CN = #{distance} <!-- 거리 -->
+		</if>
+	</select>
+</mapper>
