@@ -40,7 +40,7 @@ export default {
 
     data() {
       return {
-        updateCheck:false,
+        updateCheck: false,
         deleteCheck : false,
         old_reply_content: this.reply.reply_content,
       }

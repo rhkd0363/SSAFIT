@@ -74,3 +74,19 @@ CREATE TABLE `video_review` (
   CONSTRAINT `FK_VIDEO_REVIEW_user_id_USER_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_VIDEO_REVIEW_video_id_VIDEO_video_id` FOREIGN KEY (`video_id`) REFERENCES `video` (`video_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='영상 리뷰 테이블';
+
+
+
+#+====================================
+
+CREATE TABLE `board` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '게시글 ID',
+  `title` varchar(200) NOT NULL COMMENT '제목',
+  `user_id` varchar(45) NOT NULL COMMENT '작성자',
+  `content` text NOT NULL COMMENT '내용',
+  `reg_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '작성일자',
+  `view_cnt` int DEFAULT '0',
+  PRIMARY KEY (`id`,`user_id`),
+  KEY `FK_BOARD_user_id_USER_user_id` (`user_id`),
+  CONSTRAINT `FK_BOARD_user_id_USER_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='게시글 테이블'

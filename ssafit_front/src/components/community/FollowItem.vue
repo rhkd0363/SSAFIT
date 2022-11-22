@@ -58,6 +58,7 @@ export default {
         }
       }).then(res => {
         if (res.data == "success") {
+          this.user.followerCnt += 1;
           this.user.ref_follow = 1;
         } else {
           alert("Follow 실패");
@@ -78,6 +79,7 @@ export default {
         }
       }).then(res => {
         if (res.data == "success") {
+          this.user.followerCnt -= 1;
           this.user.ref_follow = 0;
         } else {
           alert("Un - Follow 실패");

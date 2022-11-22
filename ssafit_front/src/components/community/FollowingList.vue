@@ -2,7 +2,7 @@
   <div style="margin: 2%;">
     <h1>My Following</h1>
     <b-input-group style="width: 70%; margin: 1% 15%;">
-      <b-input  type="text" v-model="search_name" />
+      <b-input  type="text" v-model="search_name" @keyup.enter="searchFollowingList"/>
       <b-button variant="info" style="width: 10%;" @click="searchFollowingList">검 색</b-button>
     </b-input-group>
     <div class="card" style="border-left: 0; border-right: 0;">

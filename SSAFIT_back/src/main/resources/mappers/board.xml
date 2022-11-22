@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafit.pjt.model.dao.BoardDao">
+	<select id="selectList" parameterType="java.util.HashMap" resultType="Board">
+		SELECT board.id, board.title, board.user_id, board.content, board.view_cnt, board.reg_date,
+		       user.user_name
+		  FROM board
+		LEFT OUTER JOIN ( SELECT user_id, user_name FROM user) user
+		    ON board.user_id = user.user_id
+		 WHERE 1 = 1
+		 <if test="mode == 1">
+		   AND board.title LIKE CONCAT('%',#{keyword},'%')
+		 </if>
+		 <if test="mode == 2">
+		   AND board.content LIKE CONCAT('%',#{keyword},'%')
+		 </if>
+		 <if test="mode == 3">
+		   AND board.title LIKE CONCAT('%',#{keyword},'%') OR board.content LIKE CONCAT('%',#{keyword},'%')
+		 </if>
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO board (title, user_id, content)
+		VALUES (#{title},#{user_id},#{content})
+	</insert>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE board
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   view_cnt = #{view_cnt}
+		 WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		 WHERE id = #{id}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="Board">
+		SELECT board.id, board.title, board.user_id, board.content, board.view_cnt, board.reg_date,
+		       user.user_name, user_img
+		  FROM board
+		LEFT OUTER JOIN ( SELECT user_id, user_name, user_img FROM user) user
+		    ON board.user_id = user.user_id
+		 WHERE 1 = 1
+		   AND board.id = #{id}
+	</select>
+</mapper>

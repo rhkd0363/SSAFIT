@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import HomeView from '../views/Home.vue'
 import Login from '../components/user/LoginPage.vue'
 import Join from '../components/user/JoinPage.vue'
-import Video from '../views/Video.vue'
+import VideoView from '../views/Video.vue'
 import VideoList from '../components/video/VideoList.vue'
 import VideoDetail from '../components/video/VideoDetail.vue'
-import Community from '../views/Community.vue'
+import CommunityView from '../views/Community.vue'
 import MyPage from '../views/MyPage.vue'
 import UpdateUser from '../components/user/UpdateUser.vue'
 import UpdatePass from '../components/user/UpdatePass.vue'
@@ -16,14 +16,17 @@ import FollowerList from '../components/community/FollowerList.vue'
 import FollowProfile from '../components/community/FollowProfile.vue'
 import FollowLikeVideo from '../components/community/FollowLikeVideo.vue'
 import CommunityBoard from '../components/community/CommunityBoard.vue'
-
+import BoardCreate from '../components/community/board/BoardCreate.vue'
+import BoardList from "../components/community/board/BoardList.vue"
+import BoardDetail from "../components/community/board/BoardDetail.vue"
+import BoardUpdate from "../components/community/board/BoardUpdate.vue"
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'HomeView',
+    component: HomeView
   },
   {
     path: '/join',
@@ -47,8 +50,7 @@ const routes = [
   },
   {
     path: '/video',
-    name: 'Video',
-    component: Video,
+    component: VideoView,
     children:[
       {
         path:'',
@@ -64,8 +66,7 @@ const routes = [
   },
   {
     path: '/community',
-    name: 'Community',
-    component: Community,
+    component: CommunityView,
     children:[
       {
         path: '',
@@ -89,9 +90,25 @@ const routes = [
       },
       {
         path: 'board',
-        name: 'board',
         component: CommunityBoard,
-      },
+        children:[
+          {
+            path: "",
+            name: "boardList",
+            component: BoardList
+          },
+          {
+            path: ":id",
+            name: "boardDetail",
+            component: BoardDetail
+          },
+          {
+            path: "update",
+            name: "boardUpdate",
+            component: BoardUpdate
+          }
+        ]
+      }
     ]
   },
   {

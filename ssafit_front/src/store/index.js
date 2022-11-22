@@ -17,8 +17,9 @@ export default new Vuex.Store({
     mode: false,            // 로그인 상태 확인 용도
     user: null,             // 로그인된 유저 정보
     users: null,            // 커뮤니티용 유저 목록
-    followProfile: null     // 팔로우 유저 프로필용
-
+    followProfile: null,     // 팔로우 유저 프로필용
+    boards:[],
+    board:'',
   },
 
   getters: {
@@ -48,7 +49,15 @@ export default new Vuex.Store({
     SET_USERS(state,payload){
       state.users = payload
     },
-
+    GET_BOARDS(state, payload){
+      state.boards = payload
+    },
+    GET_BOARD(state, payload){
+      state.board = payload
+    },
+    UPDATE_BOARD(state, payload){
+      state.board = payload
+    }
   },
 
   actions: {
@@ -303,6 +312,81 @@ export default new Vuex.Store({
         })
     },
 
+    getBoards({commit}, payload){
+      let params = null
+      if(payload) params = payload
+
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/board',
+        method: 'GET',
+        params,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then((res) => {
+        commit('GET_BOARDS', res.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    getBoard({commit}, id){
+      axios({
+        url: process.env.VUE_APP_REST_URL +'/board/' +id,
+        method: 'GET',
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then((res)=>{
+        commit('GET_BOARD', res.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    
+    createBoard({commit}, board){
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/board',
+        method: 'POST',
+        params: board,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(() => {
+        commit
+        this.dispatch("getBoards",'');
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+
+    updateBoard({commit}, board){
+      axios({
+        url: process.env.VUE_APP_REST_URL + '/board',
+        method: "PUT",
+        params: board,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(() =>{
+        commit('UPDATE_BOARD', board)
+        router.push({name: 'boardDetail', params: { id: board.id }})
+      })
+    },
+
+    deleteBoard({commit}, id){
+      axios({
+        url: process.env.VUE_APP_REST_URL+'/board/' + id,
+        method: 'DELETE',
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(()=>{
+        commit
+        router.push({name: 'boardList'})
+      }).catch((err)=> {
+        console.log(err)
+      })
+    }
   },
 
   modules: {
