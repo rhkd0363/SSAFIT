@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Board</h1>
+    <h1>Community Board</h1>
     <router-view></router-view>
   </div>
 </template>

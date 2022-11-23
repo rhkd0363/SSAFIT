@@ -20,7 +20,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 <if test="mode == 3">
 		   AND board.title LIKE CONCAT('%',#{keyword},'%') OR board.content LIKE CONCAT('%',#{keyword},'%')
 		 </if>
-		 order by board.reg_date desc
 	</select>
 	
 	<insert id="insertBoard" parameterType="Board">

@@ -6,7 +6,7 @@
         <option value="2">내용</option>
         <option value="3">제목+내용</option>
       </b-select>
-      <b-input  type="text" v-model="keyword"  style="width: 70%;" @keyup.enter="search"/>
+      <b-input  type="text" v-model="keyword"  style="width: 70%;" @keyup.enter="search" placeholder="Enter Name"/>
       <b-button variant="info" style="width: 10%;" @click="search">검 색</b-button>
     </b-input-group>
 

@@ -55,7 +55,7 @@
         <ul style="margin: 0 0 40px 20px">
           <h6>VIDEO</h6>
           <li style="margin: 15px;"><router-link to="/video" style="text-decoration: none;">Video List</router-link></li>
-          <li style="margin: 15px;"><router-link to="/likeVideoList" style="text-decoration: none;">My Favorite Videos</router-link></li>
+          <li style="margin: 15px;"><router-link to="/myFavoriteVideo" style="text-decoration: none;">My Favorite Videos</router-link></li>
           <hr>   
         </ul>
 
@@ -65,6 +65,12 @@
           <li style="margin: 15px;"><router-link to="/community/following" style="text-decoration: none;">My Following</router-link></li>
           <li style="margin: 15px;"><router-link to="/community/follower" style="text-decoration: none;">My Follower</router-link></li>
           <li style="margin: 15px;"><router-link to="/community/board" style="text-decoration: none;">Community Board</router-link></li>
+          <hr>   
+        </ul>
+        
+        <ul  style="margin: 0 0 40px 20px">
+          <h6>TREKKING</h6>
+          <li style="margin: 15px;"><router-link to="/trekking" style="text-decoration: none;">Trekking Course</router-link></li>
           <hr>   
         </ul>
 

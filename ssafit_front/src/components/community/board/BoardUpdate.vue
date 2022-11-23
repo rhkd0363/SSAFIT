@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h2>게시글 수정</h2>
-
-    <div>
+    <div style="margin-top: 5%;">
       <b-card style=" display: flex; justify-content: center;" class="mb-2">
         <b-card-header style="background-color: white;">
           <div style="display: flex;">

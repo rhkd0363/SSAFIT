@@ -21,6 +21,7 @@ import BoardDetail from "../components/community/board/BoardDetail.vue"
 import BoardUpdate from "../components/community/board/BoardUpdate.vue"
 import TrekkingView from "../views/TrekkingView.vue"
 import TrekkingHome from "../components/trekking/TrekkingHome.vue"
+import MyLikeVideo from "../components/user/MyLikeVideo.vue"
 
 Vue.use(VueRouter)
 
@@ -43,10 +44,10 @@ const routes = [
   {
     path: '/trekking',
     component: TrekkingView,
-    children:[
+    children: [
       {
         path: '',
-        name : 'TrekkingHome',
+        name: 'TrekkingHome',
         component: TrekkingHome,
       }
     ]
@@ -64,15 +65,15 @@ const routes = [
   {
     path: '/video',
     component: VideoView,
-    children:[
+    children: [
       {
-        path:'',
-        name:'VideoList',
+        path: '',
+        name: 'VideoList',
         component: VideoList
       },
       {
-        path:'detail',
-        name:'VideoDetail',
+        path: 'detail',
+        name: 'VideoDetail',
         component: VideoDetail
       }
     ]
@@ -80,7 +81,7 @@ const routes = [
   {
     path: '/community',
     component: CommunityView,
-    children:[
+    children: [
       {
         path: '',
         name: 'UserList',
@@ -104,7 +105,7 @@ const routes = [
       {
         path: 'board',
         component: CommunityBoard,
-        children:[
+        children: [
           {
             path: "",
             name: "boardList",
@@ -125,9 +126,14 @@ const routes = [
     ]
   },
   {
-    path: '/mypage',
+    path: '/myPage',
     name: 'MyPage',
-    component: MyPage
+    component: MyPage,
+  },
+  {
+    path: '/myFavoriteVideo',
+    name: 'MyLikeVideo',
+    component: MyLikeVideo,
   },
   {
     path: '/likeVideoList',

@@ -1,9 +1,12 @@
 <template>
   <div class="loginForm">
-    <br>
-    <h2>LOGIN</h2>
-    <hr>
-    <b-form @submit.prevent="loginUser">
+    <img src="@/assets/loginImg.png" style="margin-top: 1%; border-radius: 1%; z-index: -1; opacity: 80%; position: absolute; width: 70%;">
+    
+    <div style="background-color: rgba(255,255,255,0.8); width: 70%; padding: 2%; margin-top: 5%;">
+      <br>
+      <h2>LOGIN</h2>
+      <hr>
+      <b-form @submit.prevent="loginUser">
       <b-form-group id="id-group" label="ID" label-for="id">
         <b-form-input id="id" v-model="id" placeholder="ID를 입력해주세요." ref="id">
         </b-form-input>
@@ -15,9 +18,10 @@
         <small style="margin-left: 10px; color: red;" v-if="pw.length === 0" >{{ pwMsg }}</small>
       </b-form-group>
       <div style="text-align: center;">
-       <b-button type="submit" variant="primary">LOGIN</b-button>
+        <b-button type="submit" variant="primary">LOGIN</b-button>
       </div>
     </b-form>
+  </div>
   </div>
 </template>
 
@@ -71,7 +75,9 @@ export default {
 
 <style>
 .loginForm{
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
+  display: flex;
+  justify-content: center;
 }
 </style>

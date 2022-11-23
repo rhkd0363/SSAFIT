@@ -24,4 +24,7 @@ export default {
     box-sizing: border-box;
     list-style: none;
 }
+#section{
+    flex: 1;
+}
 </style>

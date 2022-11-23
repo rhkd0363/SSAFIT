@@ -8,6 +8,8 @@
         </b-list-group>
   </b-card-body>
 
+
+
     <b-card-footer>
       <div class="overflow-auto" style="width: 100%; display: flex; justify-content: center;">
         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table">
@@ -22,7 +24,7 @@ import { mapState } from "vuex";
 import VideoItem from "@/components/video/VideoItem.vue";
 
 export default {
-  name: "FollowLikeVideo",
+  name: "MyLikeVideo",
 
   components:{
     VideoItem,
@@ -40,7 +42,7 @@ export default {
 
   data(){
     return{
-      perPage: 4,
+      perPage: 21,
       currentPage : 1,
     }
   },

@@ -9,7 +9,10 @@
             <input type="password" id="pw" name="pw" class="view" v-model="pw" ref="pw" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" :disabled="old_check"/><br/>
             <label for="pwCheck">비밀번호 확인</label>
             <input type="password" id="pwCheck" name="pwCheck" class="view" v-model="pwCheck" ref="pwCheck" placeholder="영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)" :disabled="old_check"/><br/>
-            <div style="color: red">
+            <div style="color: green" v-if="vaildPassword == '비밀번호가 일치합니다.'">
+              {{vaildPassword}}
+            </div>
+            <div style="color: red" v-else>
               {{vaildPassword}}
             </div>
             <br>

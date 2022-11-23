@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <h1>트레킹 코스 검색</h1>
+    <h1 style="margin-top: 1%;">Trekking Course</h1>
     <b-input-group style="width: 50%; margin: 1%;">
       <b-select id="difficulty" v-model="difficulty" style="width: 5%;">
         <option value="null">전체</option>
@@ -124,7 +124,6 @@ export default {
   },
   methods: {
     showModal(point) {
-      console.log(point)
       this.$store.state.trekkingCourse = point;
 
       this.$bvModal.show('trekking-detail')

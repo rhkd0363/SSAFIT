@@ -9,6 +9,8 @@
       <b-form @submit.prevent="joinUser">
         <b-form-group id="name-group" label="NAME" label-for="name">
           <b-form-input id="name" v-model="name" placeholder="Enter Your Name!" ref="name"></b-form-input>
+          <small style="margin-left: 10px; color: red;" v-if="vaildName != '✔ 형식이 일치합니다.'" >{{vaildName}}</small>
+          <small style="margin-left: 10px; color: green;" v-else >{{vaildName}}</small>
       </b-form-group>
       <b-form-group id="id-group" label="ID" label-for="id">
         <div style="display: flex;">
@@ -37,6 +39,8 @@
       <b-form-group id="phoneNumber-group" label="PHONE-NUMBER" label-for="phoneNumber">
         <b-form-input id="phoneNumber" v-model="phoneNumber" placeholder="Enter Your Phone Number!" ref="phoneNumber">
         </b-form-input>
+        <small style="margin-left: 10px; color: red;" v-if="vaildPhoneNumber != '✔ 형식이 일치합니다.'" >{{vaildPhoneNumber}}</small>
+        <small style="margin-left: 10px; color: green;" v-else >{{vaildPhoneNumber}}</small>
       </b-form-group>
       
       <div style="text-align: center;">
@@ -64,11 +68,37 @@ export default {
       joinCheck: true,
       img: "",
       showImg: false,
-      idCheckMsg: "ID 중복확인이 필요합니다. ",
+      idCheckMsg: "ID 중복확인이 필요합니다. (ID는 영어와 숫자를 조합한 4 ~ 20 자 입니다)",
     };
   },
 
   computed: {
+    vaildName() {
+      const validateName = /^[가-힣a-zA-Z]+$/;
+      
+      if(!this.name){
+        return "이름을 입력해주세요"
+      }
+      
+      if (!validateName.test(this.name)) {
+        return "✘ 한글 또는 영어만 입력이 가능합니다.";
+      }               
+           
+      return "✔ 형식이 일치합니다.";
+    },
+    vaildPhoneNumber() {
+      const validatePhoneNumber = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+      
+      if(!this.phoneNumber){
+        return "연락처를 입력해주세요"
+      }
+      
+      if (!validatePhoneNumber.test(this.phoneNumber)) {
+        return "✘ '010-1234-5678' 와 같은 형식으로 입력해주세요";
+      }               
+           
+      return "✔ 형식이 일치합니다.";
+    },
     vaildPassword() {
       const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
@@ -82,7 +112,6 @@ export default {
 
       return "✔ 비밀번호가 일치합니다.";
     },
-
     vaildEmail() {
       const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/;
 
@@ -98,44 +127,52 @@ export default {
     // 회원가입 하기
     joinUser() {
       // 유효성 검사
-      if (this.name.length === 0) {
-        alert("이름을 입력해주세요.");
+      // 이름
+      const validateName = /^[가-힣a-zA-Z]+$/;     
+      if (!validateName.test(this.name) || !this.name) {
+        alert("✘ 이름은 한글 또는 영어만 입력이 가능합니다.")
         this.$refs.name.focus();
-        return;
-      }
+        return 
+      }               
 
-      if (this.id.length === 0) {
-        alert("아이디를 입력해주세요.");
+      //ID
+      const validateId = /^(?=.*[a-zA-z])(?=.*[0-9]).{4,20}$/;
+      const validateId2 = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{4,20}$/;
+      if(this.id.length == 0 || this.id.trim().length == 0 || !validateId.test(this.id) || validateId2.test(this.id)){
+        alert("✘ 정확한 ID를 입력해주세요( ID는 영어와 숫자를 조합한 4 ~ 20 자 입니다)");
         this.$refs.id.focus();
         return;
       }
 
+      //PW
       const validatePassword = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-
       if (!validatePassword.test(this.pw) || !this.pw) {
-        alert("영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)");
+        alert("비밀번호는 영문, 숫자, 특수문자를 조합하여 입력해주세요(8-16자)");
         this.$refs.email.focus();
         return;
       }
 
+      //PWCheck
       if (this.pw != this.pwCheck) {
         alert("비밀번호가 일치하지 않습니다.");
         this.$refs.pwCheck.focus();
         return;
       }
 
+      //Email
       const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/;
-
       if (!validateEmail.test(this.email) || !this.email) {
         alert("이메일 주소를 정확히 입력해주세요.");
         this.$refs.email.focus();
         return;
       }
 
-      if (this.phoneNumber.length === 0) {
-        alert("전화번호를 입력해주세요.");
+      //PhoneNumber
+      const validatePhoneNumber = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+      if (this.phoneNumber.length === 0 || !validatePhoneNumber.test(this.phoneNumber)) {
+        alert("전화번호는 '010-1234-5678' 형식으로 작성해주세요");
         this.$refs.phoneNumber.focus();
-        return;
+        return
       }
 
       // 입력 받은 객체 유효성 검사를 한 후 배열에 추가
@@ -155,8 +192,12 @@ export default {
 
     // 아이디 중복 체크하기
     idCheck() {
-      if(this.id.length == 0 | this.id.trim().length == 0){
-        this.idCheckMsg="✘ 정확한 ID를 입력해주세요";
+      const validateId = /^(?=.*[a-zA-z])(?=.*[0-9]).{4,20}$/;
+      const validateId2 = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{4,20}$/;
+
+      if(this.id.length == 0 || this.id.trim().length == 0 || !validateId.test(this.id) || validateId2.test(this.id)){
+        this.idCheckMsg="✘ 정확한 ID를 입력해주세요( ID는 영어와 숫자를 조합한 4 ~ 20 자 입니다)";
+        this.joinCheck = true;
         return;
       }
 

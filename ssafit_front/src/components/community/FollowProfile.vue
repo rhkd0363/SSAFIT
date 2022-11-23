@@ -1,13 +1,15 @@
 <template>
   <div style="display: flex; justify-content: center;">
-    <div style="width: 80%;">
-      <div>
-        <div class="container">
-          <div>
-            <img id="profileImg" :src="`${ followProfile.user_img }`" style="border-radius: 100%;  background-color: beige; width: 30%">
+    <b-card style="width: 100%; display: flex; background-color: #e1e1e1;">
+      <div style="max-width: 100%; min-width: 50%;">
+        <div>
+          <div class="container" style="margin-bottom: 8%;">
+            <div style="margin-top: 7%;">
+              <img id="profileImg" :src="`${ followProfile.user_img }`" style="border-radius: 100%;  background-color: beige; width: 30%; margin-bottom: 2%;">
           </div>
           <h3><strong>{{ followProfile.user_name }}</strong></h3>
           <p>{{ followProfile.user_id }}</p>
+          <hr>
           <div style="display: flex; justify-content: center">
             <div style="margin-right: 20%">
               <h2>{{ followProfile.followingCnt }}</h2>
@@ -18,6 +20,7 @@
               <p>FOLLOWER</p>
             </div>
           </div>
+          <hr>
           <br>
           <div>
             <h2>{{ followProfile.user_email }}</h2>
@@ -26,18 +29,18 @@
             <h2>{{ followProfile.user_phone_number }}</h2>
             <p>PHONE-NUMBER</p>
           </div>
+          <br><br>
           <b-button @click="showList">Show Liked Videos</b-button>
         </div>
       </div>
     </div>
-    <hr :class="{ 'visible': visibleCheck }" style="width: 3px; height: 80vh; background-color: black; margin-right: 3% ;">
-    
-    <div :class="{ 'visible': visibleCheck }">
-      <div>
+  </b-card>
+  <b-card style="min-width: 50%; max-width: 100%; padding: 0; background-color: #e1e1e1;">
+      <b-card-header>
         <h2><strong>{{ followProfile.user_name }}님이 좋아요한 영상</strong></h2>
-      </div>
-      <follow-like-video :follow_id="followProfile.user_id"></follow-like-video>
-    </div>
+      </b-card-header>
+      <follow-like-video :follow_id="followProfile.user_id" :visibleCheck="visibleCheck"></follow-like-video>
+    </b-card>
 </div>
 </template>
 
@@ -63,6 +66,7 @@ export default {
     },
     methods:{
       showList(){
+        console.log(this.visibleCheck);
         this.visibleCheck = !this.visibleCheck
       }
     }
@@ -70,7 +74,4 @@ export default {
 </script>
 
 <style>
-.visible{
-  display: none;
-}
 </style>

@@ -1,21 +1,21 @@
 <template>
   <div class="myPage">
     <div>
-      <h1 style="text-align: center;">MY PAGE</h1>
-      <hr/>
-      <div style="background-color: lightskyblue; border-radius: 1%;">
-        <div style="text-align: left; margin-left: 7%; padding-top: 3%">
-          <strong style="font-size: 2vw;">{{ user.user_id }}</strong>
-        </div>
-        <hr style="margin-left: 2%; margin-right: 2%;" />
-        <div style="display: flex; align-items: center;">
-          <div style="width: 25%; margin: 0% 5% 0% 5%;">
-            <img
+      <h1 style="text-align: center; margin: 1%;">MY PAGE</h1>
+      <b-card style="padding: 0; background-color: #fffefa;">
+        <div>
+          <div style="text-align: left; margin-left: 5%;">
+            <strong style="font-size: 2vw;">{{ user.user_id }}</strong>
+          </div>
+          <hr style="margin-left: 2%; margin-right: 2%;" />
+          <div style="display: flex; align-items: center;">
+            <div style="width: 25%; margin: 0% 5% 0% 5%;">
+              <img
               :src="`${ user.user_img }`"
               style="width: 100%; background-color: steelblue; border-radius: 100%;"
-            />
-          </div>
-          <div style="text-align: center; width: 50%;">
+              />
+            </div>
+          <div style="text-align: center; width: 50%; margin-left: 5%;">
             <div style="display: flex; justify-content: space-around;">
               <div>
                 <strong style="font-size: 4vw;">{{ followerCnt }}</strong>
@@ -35,8 +35,8 @@
             <div style="display: flex; justify-content: space-between; width: 100%;">
               <router-link to="/updateUser">
                 <b-button
-                  variant="primary"
-                  style="padding-left: 50px; padding-right: 50px;"
+                variant="primary"
+                style="padding-left: 50px; padding-right: 50px;"
                 >EDIT USER INFO</b-button>
               </router-link>
               <router-link to="/updatePass">
@@ -48,20 +48,24 @@
         <hr style="margin-left: 2%; margin-right: 2%;" />
         <div style="margin: 4%; display: flex; justify-content: space-between;">
           <div>
-            <h4>NAME : {{ user.user_name }}</h4>
-            <br />
-            <h4>EMAIL : {{ user.user_email }}</h4>
-            <br />
-            <h4>PHONE-NUMBER : {{ user.user_phone_number }}</h4>
-            <br />
+            <div style="margin-bottom: 15%;">
+              <h4>NAME : {{ user.user_name }}</h4>
+            </div>
+            <div style="margin-bottom: 15%;">
+              <h4>EMAIL : {{ user.user_email }}</h4>
+            </div>
+            <div>
+              <h4>PHONE-NUMBER : {{ user.user_phone_number }}</h4>
+            </div>
           </div>
           <div style="justify-content: center; align-self: center;">
-            <router-link to="/likeVideoList">
+            <router-link to="/myFavoriteVideo">
               <b-button variant="info">My Favorite Videos</b-button>
             </router-link>
           </div>
         </div>
       </div>
+    </b-card>
     </div>
   </div>
 </template>

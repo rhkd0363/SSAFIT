@@ -27,7 +27,7 @@
         <li v-for="reply in replys" :key="reply.reply_id">
           <reply-item :reply="reply"></reply-item>
         </li>
-        <div style="margin-left: 5%;">
+        <div style="margin-top: 5%; margin-left: 5%;">
           <b-form-textarea v-model="reply_content" placeholder="Please Reply..." rows="3" max-rows="6"></b-form-textarea>
           <b-button variant="outline-info" @click="createReply" style="margin: 1%;">답글 등록</b-button>
         </div>

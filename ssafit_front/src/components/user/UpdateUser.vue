@@ -36,26 +36,26 @@ export default {
 
     methods: {
       updateUser() {
-
-        if(this.user.user_name.length === 0){
-          alert("이름을 확인해주세요.");
+        const validateName = /^[가-힣a-zA-Z]+$/;     
+        if (!validateName.test(this.user.user_name) || !this.user.user_name) {
+          alert("✘ 이름은 한글 또는 영어만 입력이 가능합니다.")
           this.$refs.name.focus();
-          return;
-          }
+          return 
+        }  
 
-          const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/
-
+        const validateEmail = /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/
         if (!validateEmail.test(this.user.user_email) || !this.user.user_email) {
-            alert("이메일 주소를 정확히 입력해주세요.");
-            this.$refs.email.focus();
-            return
-          }         
+          alert("이메일 주소를 정확히 입력해주세요.");
+          this.$refs.email.focus();
+          return
+        }         
 
-          if(this.user.user_phone_number.length === 0){
-          alert("전화번호를 확인해주세요.");
+        const validatePhoneNumber = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+        if (this.user.user_phone_number.length === 0 || !validatePhoneNumber.test(this.user.user_phone_number)) {
+          alert("전화번호는 '010-1234-5678' 형식으로 작성해주세요");
           this.$refs.phoneNumber.focus();
-          return;
-          }
+          return
+        }
 
           // 입력 받은 객체 유효성 검사를 한 후 배열에 추가
           let userInfo = {
@@ -72,8 +72,8 @@ export default {
           })
           .then((res) => {
             if(res.data == 'success'){
-              alert('수정이 완료되었습니다.')
-              this.$router.push('/')
+              alert('수정이 완료되었습니다. 다시 로그인하기 바랍니다.')
+              this.$store.dispatch('logout');
             }else{
               alert('수정 실패')
             }

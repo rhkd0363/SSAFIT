@@ -16,10 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="keyword != null">
 		  AND video_title LIKE CONCAT('%',#{keyword},'%')
 		</if>
-		<if test="body_part != null">
-			<if test="body_part != 'null'">
+		<if test="body_part != null and body_part != 'null'">
 			  AND body_part = #{body_part}
-			</if>
 		</if>
 	</select>
 	

@@ -13,11 +13,12 @@
       ></iframe>
     </div>
     <div style="margin-left: 3%; display: flex; justify-content: space-between;">
-      <div>
+      <div style="width: 90%; text-align: left;">
         <strong style="font-size: 1.3vw;">{{ video.video_title }}</strong>
       </div>
-      <div style="margin-right: 3%;">
-        <strong>조회수 {{ video.view_cnt }}회</strong>
+      <div style="margin-right: 4%;">
+        <b-button variant="default" v-if="like" @click="removeLike" style="padding: 0 40%; margin-right: 100%; margin-right: 40px;"><strong style="font-size: 1px;">좋아요</strong><h4><b-icon icon="bookmark-heart-fill" style="color: red;"></b-icon></h4></b-button>
+        <b-button variant="default" v-else @click="registLike" style="padding: 0 40%; margin-right: 40px;"><strong style="font-size: 1px;">좋아요</strong><h4><b-icon icon="bookmark-heart"></b-icon></h4></b-button>
       </div>
     </div>
     
@@ -25,9 +26,8 @@
       <div style="margin: 1%;">
         <strong>{{ video.channel_title }}</strong>
       </div>
-      <div style="margin-right: 3%;">
-        <b-button variant="danger" v-if="like" @click="removeLike"><h3>♥</h3>좋아요</b-button>
-        <b-button variant="danger" v-else @click="registLike"><h3>♡</h3>좋아요</b-button>
+      <div style="margin-right: 3%; width: 13%;">
+        <strong style="font-size: 0.9vw;">조회수 {{ video.view_cnt }}회</strong>
       </div>
     </div>
     <hr style="margin: 2%;">
