@@ -21,6 +21,7 @@ export default new Vuex.Store({
     boards:[],
     board:'',
     trekkingCourse : '',
+    surfingPlace : '',
   },
 
   getters: {

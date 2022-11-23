@@ -1,33 +1,15 @@
 <template>
   <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <h1 style="margin-top: 1%;">Trekking Course</h1>
+    <h1 style="margin-top: 1%;">Surfing Place</h1>
     <b-input-group style="width: 50%; margin: 1%;">
-      <b-select id="difficulty" v-model="difficulty" style="width: 5%;">
-        <option value="null">전체</option>
-        <option value="매우쉬움">매우쉬움</option>
-        <option value="쉬움">쉬움</option>
-        <option value="보통">보통</option>
-        <option value="어려움">어려움</option>
-        <option value="매우어려움">매우어려움</option>
-      </b-select>
-      <b-select id="distance" v-model="distance" style="width: 5%;">
-        <option value="null">전체</option>
-        <option value="1Km미만">1Km미만</option>
-        <option value="1~5Km미만">1~5Km미만</option>
-        <option value="5~10Km미만">5~10Km미만</option>
-        <option value="10~15Km미만">10~15Km미만</option>
-        <option value="15~20Km미만">15~20Km미만</option>
-        <option value="20~100Km미만">20~100Km미만</option>
-        <option value="100Km이상">100Km이상</option>
-      </b-select>
       <b-input
         type="text"
         v-model="searchKeyword"
-        @keyup.enter="searchTrekkingCourse"
+        @keyup.enter="searchSurfingPlace"
         style="width: 45%;"
-        placeholder="트레킹을 하고 싶은 지역명을 입력하세요!"
+        placeholder="서핑을 하고 싶은 지역명을 입력하세요!"
       />
-      <b-button variant="info" style="width: 10%;" @click="searchTrekkingCourse">검 색</b-button>
+      <b-button variant="info" style="width: 10%;" @click="searchSurfingPlace">검 색</b-button>
     </b-input-group>
 
     <div style="display: flex; justify-content: center; width: 100%;">
@@ -40,30 +22,21 @@
       >
         <b-list-group v-for="point in markerPoint" :key="point">
           <b-list-group-item
-            v-if="point.latlng.La == trekkingPoint.La & point.latlng.Ma == trekkingPoint.Ma"
+            v-if="point.latlng.La == surfingPoint.La & point.latlng.Ma == surfingPoint.Ma"
             style="padding: 0;"
           >
             <b-button variant="light" style="width: 100%; padding: 0;" @click="showModal(point)">
               <div>
-                <small>코스명 : {{point.wlk_cours_flag_nm}}</small>
+                <small>해수욕장명 : {{point.beachName}}</small>
               </div>
               <div>
-                <small>상세명 : {{point.wlk_cours_nm}}</small>
+                <small>위치 : {{point.sigungu}}</small>
               </div>
               <div>
-                <small>난이도 : {{point.cours_level_nm}}</small>
+                <small>해수욕장 길이 : {{point.beach_len}}m</small>
               </div>
               <div>
-                <small>코스 길이 : {{point.cours_lt_cn}}</small>
-              </div>
-              <div>
-                <small>상세 길이: {{point.cours_detail_lt_cn}}Km</small>
-              </div>
-              <div>
-                <small>예상 소요 시간 : {{point.cours_time_cn}}</small>
-              </div>
-              <div>
-                <small>주소 : {{point.lnm_addr}}</small>
+                <small>해수욕장 폭 : {{point.beach_wid}}m</small>
               </div>
             </b-button>
           </b-list-group-item>
@@ -71,78 +44,69 @@
       </div>
       <b-button variant="secondary" :hidden="markCheck" @click="markCheck = true">닫기</b-button>
     </div>
-
-    <trekking-detail></trekking-detail>
+    <surfing-detail></surfing-detail>
   </div>
 </template>
     
     <script>
-import { mapState } from "vuex";
 import axios from "axios";
-import TrekkingDetail from "./TrekkingDetail.vue"
+import SurfingDetail from "./SurfingDetail.vue";
 
 export default {
-  name: 'TrekkingHome',
+  name: 'SurfingHome',
+  components:{
+    SurfingDetail,
+  },
   data() {
     return {
-      distance: null,
-      difficulty: null,
       searchKeyword: "",
       map: null,
-      trekkingCourses: [],
+      surfingPlaces: [],
       // 화면에 표시되어있는 marker들
       markers: [],
-      trekkingPoint: "",
+      surfingPoint: "",
       markCheck: true
     };
   },
-  components:{
-    TrekkingDetail,
-  },
+
   computed: {
     markerPoint() {
-      return this.trekkingCourses.map(trekkingCourse => ({
-        esntl_id: trekkingCourse.esntl_id, //코스 ID
-        wlk_cours_flag_nm: trekkingCourse.wlk_cours_flag_nm, //코스명
-        wlk_cours_nm: trekkingCourse.wlk_cours_nm, //코스 세부명
-        cours_dc: trekkingCourse.cours_dc, //코스 설명
-        cours_level_nm: trekkingCourse.cours_level_nm, // 코스 난이도
-        cours_lt_cn: trekkingCourse.cours_lt_cn, //코스 경로 길이
-        cours_detail_lt_cn: trekkingCourse.cours_detail_lt_cn, //코스 경로 상세 길이 km단위임
-        adit_dc: trekkingCourse.adit_dc, //코스 추가 설명
-        cours_time_cn: trekkingCourse.cours_time_cn, //예상소요시간
-        optn_dc: trekkingCourse.optn_dc, // 부가적인 설명
-        toilet_dc: trekkingCourse.toilet_dc, //화장실
-        cvntl_nm: trekkingCourse.cvntl_nm, //편의시설
-        lnm_addr: trekkingCourse.lnm_addr, // 주소
+      return this.surfingPlaces.map(surfingPlace => ({
+        beachName: surfingPlace.sta_nm, //해수욕장 이름
+        sigungu : surfingPlace.sido_nm+surfingPlace.gugun_nm, //시군구
+        beach_len : surfingPlace.beach_len, //길이
+        beach_wid : surfingPlace.beach_wid, // 폭
+        beach_knd : surfingPlace.beach_knd,  // 특징
+        link_addr : surfingPlace.link_addr, // 관련 사이트 url
+        link_nm : surfingPlace.link_nm, // 관련 사이트 이름
+        link_tel : surfingPlace.link_tel, // 관련 사이트 연락처
+        beach_img : surfingPlace.beach_img,
         latlng: new kakao.maps.LatLng(
-          trekkingCourse.cours_spot_la,
-          trekkingCourse.cours_spot_lo
+          surfingPlace.lat,
+          surfingPlace.lon
         ) // 경, 위도
       }));
     }
   },
   methods: {
     showModal(point) {
-      this.$store.state.trekkingCourse = point;
+      this.$store.state.surfingPlace = point;
 
       this.$bvModal.show('trekking-detail')
     },
-    searchTrekkingCourse() {
+    searchSurfingPlace() {
       axios({
-        url: process.env.VUE_APP_REST_URL + "/trekking",
-        method: "GET",
-        params: {
-          searchKeyword: this.searchKeyword,
-          difficulty: this.difficulty,
-          distance: this.distance
-        },
-        headers: {
-          "access-token": sessionStorage.getItem("access-token")
-        }
+        url: process.env.VUE_APP_SURF_PLACE_API_URL+
+        '?ServiceKey='+process.env.VUE_APP_SURF_PLACE_KEY+
+        '&numOfRows=20'+
+        '&SIDO_NM='+this.searchKeyword+
+        '&resultType=json'+
+        '&SG_APIM='+VUE_APP_SURF_PLACE_SG_APIM_KEY,
+        method: "GET" 
       })
         .then(res => {
-          this.trekkingCourses = res.data;
+          console.log(res);
+          this.surfingPlaces = res.data.getOceansBeachInfo.item;
 
           setTimeout(() => {
             this.displayMarkers(this.markerPoint);
@@ -181,31 +145,38 @@ export default {
         const infowindow = new kakao.maps.InfoWindow({
           removable: true,
           content:
-            `<div style="width:300px;"><div style="padding:2px;">코스명 : ${position.wlk_cours_flag_nm}</div>` +
-            //  `<div style="padding:2px;">상세명 : ${position.wlk_cours_nm}</div>` +
-            //  `<div style="padding:2px;">난이도 : ${position.cours_level_nm}</div>` +
+          `<div style="width:300px;"><div style="padding:2px;">해수욕장 명 : ${position.beachName}</div>` +
+          //  `<div style="padding:2px;">상세명 : ${position.wlk_cours_nm}</div>` +
+          //  `<div style="padding:2px;">난이도 : ${position.cours_level_nm}</div>` +
             //  `<div style="padding:2px;">코스 길이 : ${position.cours_lt_cn}</div>` +
             //  `<div style="padding:2px;">상세 : ${position.cours_detail_lt_cn}</div>` +
             //  `<div style="padding:2px;">예상 소요 시간 : ${position.cours_time_cn}</div>` +
-            `<div style="padding:2px;">주소 : ${position.lnm_addr}</div></div>`
-        });
+            `<div style="padding:2px;">위치 : ${position.sigungu}</div></div>`
+          });
+          
+          // wlk_cours_flag_nm : trekkingCourse.wlk_cours_flag_nm, 코스명
+          // wlk_cours_nm : trekkingCourse.wlk_cours_nm, 코스 상세 명
+          // cours_level_nm 코스 난이도
+          // cours_lt_cn : trekkingCourse.cours_lt_cn,  코스 길이
+          // cours_detail_lt_cn : trekkingCourse.cours_detail_lt_cn, 코스 상세 길이
+          // cours_time_cn : trekkingCourse.cours_time_cn,  코스 예상 소요 시간
+          // lnm_addr : trekkingCourse.lnm_addr,  주소
+          
+          const marker = new kakao.maps.Marker({
+            map: this.map,
+            position: position.latlng,
+          });
 
-        // wlk_cours_flag_nm : trekkingCourse.wlk_cours_flag_nm, 코스명
-        // wlk_cours_nm : trekkingCourse.wlk_cours_nm, 코스 상세 명
-        // cours_level_nm 코스 난이도
-        // cours_lt_cn : trekkingCourse.cours_lt_cn,  코스 길이
-        // cours_detail_lt_cn : trekkingCourse.cours_detail_lt_cn, 코스 상세 길이
-        // cours_time_cn : trekkingCourse.cours_time_cn,  코스 예상 소요 시간
-        // lnm_addr : trekkingCourse.lnm_addr,  주소
+        if(position.beach_img != null){
+          const imgSize = new kakao.maps.Size(24, 35);
+          const markerImage = new kakao.maps.MarkerImage(position.beach_img, imgSize);
+          marker.image = markerImage;
+        }
 
-        const marker = new kakao.maps.Marker({
-          map: this.map,
-          position: position.latlng
-        });
         // 이벤트 등록
         //  kakao.maps.event.addListener(marker, "mouseover", () => {infowindow.open(this.map, marker);});
         kakao.maps.event.addListener(marker, "click", () => {
-          this.trekkingPoint = position.latlng;
+          this.surfingPoint = position.latlng;
           this.markCheck = false;
         });
         kakao.maps.event.addListener(marker, "mouseover", () => {
@@ -241,7 +212,7 @@ export default {
       //console.log("이미 로딩됨: ", window.kakao);
       this.initMap();
     }
-  }
+  },
 };
 </script>
     

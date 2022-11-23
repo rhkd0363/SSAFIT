@@ -16,13 +16,16 @@
         <!-- 로그인 되어있을 때 -->
         <b-navbar-nav v-if="mode">
           <b-nav-item class="nav-item">
-            <router-link to="/video" class="nav-link">VIDEO</router-link>
+            <router-link to="/video" class="nav-link"><em>VIDEO</em></router-link>
           </b-nav-item>
           <b-nav-item class="nav-item">
-            <router-link to="/community" class="nav-link">COMMUNITY</router-link>
+            <router-link to="/community" class="nav-link"><em>COMMUNITY</em></router-link>
           </b-nav-item>
           <b-nav-item class="nav-item">
-            <router-link to="/trekking" class="nav-link">TREKKING</router-link>
+            <router-link to="/trekking" class="nav-link"><em>TREKKING</em></router-link>
+          </b-nav-item>
+          <b-nav-item class="nav-item">
+            <router-link to="/surfing" class="nav-link"><em>SURFING</em></router-link>
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-if="mode">
@@ -71,6 +74,12 @@
         <ul  style="margin: 0 0 40px 20px">
           <h6>TREKKING</h6>
           <li style="margin: 15px;"><router-link to="/trekking" style="text-decoration: none;">Trekking Course</router-link></li>
+          <hr>   
+        </ul>
+        
+        <ul  style="margin: 0 0 40px 20px">
+          <h6>SURFING</h6>
+          <li style="margin: 15px;"><router-link to="/surfing" style="text-decoration: none;">Surfing Place</router-link></li>
           <hr>   
         </ul>
 

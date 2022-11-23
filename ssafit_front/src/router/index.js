@@ -21,6 +21,8 @@ import BoardDetail from "../components/community/board/BoardDetail.vue"
 import BoardUpdate from "../components/community/board/BoardUpdate.vue"
 import TrekkingView from "../views/TrekkingView.vue"
 import TrekkingHome from "../components/trekking/TrekkingHome.vue"
+import SurfingView from "../views/SurfingView.vue"
+import SurfingHome from "../components/surfing/SurfingHome.vue"
 import MyLikeVideo from "../components/user/MyLikeVideo.vue"
 
 Vue.use(VueRouter)
@@ -49,6 +51,17 @@ const routes = [
         path: '',
         name: 'TrekkingHome',
         component: TrekkingHome,
+      }
+    ]
+  },
+  {
+    path: '/surfing',
+    component: SurfingView,
+    children: [
+      {
+        path: '',
+        name: 'SurfingHome',
+        component: SurfingHome,
       }
     ]
   },
