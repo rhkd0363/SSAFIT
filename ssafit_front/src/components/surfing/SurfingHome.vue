@@ -73,14 +73,13 @@ export default {
     markerPoint() {
       return this.surfingPlaces.map(surfingPlace => ({
         beachName: surfingPlace.sta_nm, //해수욕장 이름
-        sigungu : surfingPlace.sido_nm+surfingPlace.gugun_nm, //시군구
+        sigungu : surfingPlace.sido_nm+' '+surfingPlace.gugun_nm, //시군구
         beach_len : surfingPlace.beach_len, //길이
         beach_wid : surfingPlace.beach_wid, // 폭
         beach_knd : surfingPlace.beach_knd,  // 특징
         link_addr : surfingPlace.link_addr, // 관련 사이트 url
         link_nm : surfingPlace.link_nm, // 관련 사이트 이름
         link_tel : surfingPlace.link_tel, // 관련 사이트 연락처
-        beach_img : surfingPlace.beach_img,
         latlng: new kakao.maps.LatLng(
           surfingPlace.lat,
           surfingPlace.lon
@@ -101,7 +100,7 @@ export default {
         '&numOfRows=20'+
         '&SIDO_NM='+this.searchKeyword+
         '&resultType=json'+
-        '&SG_APIM='+VUE_APP_SURF_PLACE_SG_APIM_KEY,
+        '&SG_APIM=2ug8Dm9qNBfD32JLZGPN64f3EoTlkpD8kSOHWfXpyrY',
         method: "GET" 
       })
         .then(res => {
@@ -166,12 +165,6 @@ export default {
             map: this.map,
             position: position.latlng,
           });
-
-        if(position.beach_img != null){
-          const imgSize = new kakao.maps.Size(24, 35);
-          const markerImage = new kakao.maps.MarkerImage(position.beach_img, imgSize);
-          marker.image = markerImage;
-        }
 
         // 이벤트 등록
         //  kakao.maps.event.addListener(marker, "mouseover", () => {infowindow.open(this.map, marker);});

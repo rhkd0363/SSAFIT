@@ -1,5 +1,5 @@
 <template>
-   <b-modal id="trekking-detail" title="코스 상세" size="xl">
+   <b-modal id="trekking-detail" title="상세 정보" size="xl">
     <b-list-group>
         <b-list-group-item>
             <div><div><strong>해수욕장명</strong></div>{{surfingPlace.beachName}}</div>

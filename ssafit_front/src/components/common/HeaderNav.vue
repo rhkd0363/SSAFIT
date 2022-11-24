@@ -71,8 +71,8 @@
           <hr>   
         </ul>
         
-        <ul  style="margin: 0 0 40px 20px">
-          <h6>TREKKING</h6>
+        <ul  style="margin: 0 0 40px 20px" id="trekking">
+            <h6>TREKKING</h6>
           <li style="margin: 15px;"><router-link to="/trekking" style="text-decoration: none;">Trekking Course</router-link></li>
           <hr>   
         </ul>
@@ -132,4 +132,5 @@ export default {
 .navbar{
   height: 50px;
 }
+
 </style>

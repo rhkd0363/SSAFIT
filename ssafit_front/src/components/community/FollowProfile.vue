@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <h2 style="margin: 2% 0%;">User Profile</h2>
   <div style="display: flex; justify-content: center;">
     <b-card style="width: 100%; display: flex; background-color: #e1e1e1;">
       <div style="max-width: 100%; min-width: 50%;">
@@ -41,6 +43,7 @@
       </b-card-header>
       <follow-like-video :follow_id="followProfile.user_id" :visibleCheck="visibleCheck"></follow-like-video>
     </b-card>
+</div>
 </div>
 </template>
 

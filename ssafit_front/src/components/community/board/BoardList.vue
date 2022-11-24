@@ -20,7 +20,7 @@
             <tr style="text-align: center;">
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" colspan="1">번호</th>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="6" >제목</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">글쓴이</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">작성자</th>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="1" >조회수</th>
               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2" >등록일</th>
             </tr>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height: 95.1vh;"> 
-      <video src="../assets/HomeBanner.mp4" autoplay loop muted style="z-index:-1; opacity: 90%; width: 100%; position: absolute;"></video>
+      <video src="../assets/HomeBanner.mp4" autoplay loop muted style="z-index:-1; opacity: 90%; width: 100%; padding: 0; margin: 0; position: absolute;"></video>
       <div style="display: flex; flex-direction: row; align-items: center; height: 85vh; justify-content: center; flex-direction: column;">
         <h1 style="font-size: 5vw; color: black; background-color: #0000006b; border-radius: 100%;"><em>SSAFIT</em></h1>
         <br>

@@ -1,6 +1,7 @@
 <template>
   <div style="width: 100%;" :class="{ 'visible': visibleCheck }">
-  <b-card-body style="min-height: 62vmin; display: flex; padding: 0;">
+    <b-card-header style="text-align: center;"><h2> My Favorite Videos</h2></b-card-header>
+    <b-card-body style="min-height: 62vmin; display: flex; padding: 0;">
       <b-list-group horizontal="md" style="display: flex; flex-wrap: wrap; width: 110%; justify-content: center;">
           <b-list-group-item v-for="video in videos.slice((currentPage-1)*perPage,(currentPage-1)*perPage+perPage)" :key="video.video_id" style="border: 0px; border-radius: 3%;">
             <video-item :video="video"></video-item>
