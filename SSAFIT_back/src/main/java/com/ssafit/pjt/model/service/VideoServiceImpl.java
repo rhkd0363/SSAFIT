@@ -39,9 +39,6 @@ public class VideoServiceImpl implements VideoService {
 	public int registVideo(String search) throws IOException {
 		
 		String apiurl = "https://www.googleapis.com/youtube/v3/search";
-		apiurl += "?key=AIzaSyArNVWNBpTCopVf5NHG9Oq9lsWKW4nSio8";
-		apiurl += "&part=snippet&type=video&maxResults=50&videoEmbeddable=true";
-		apiurl += "&q=" + URLEncoder.encode(search, "UTF-8");
 		
 		String nextPageToken = null;
 		
